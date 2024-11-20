@@ -1,1 +1,83 @@
-<h1>Я учился в АПТ!!!!!!!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сетевое Оборудование - Контакты</title>
+
+</head>
+<body>
+    <div id="app">
+    <header>
+        <h1>NetworkWeb</h1>
+        <p>Контакты и информация о нашей команде</p>
+    </header>
+    <main class="container">
+        <h2>Наша команда</h2>
+        <h4>Мы гордимся нашей профессиональной командой, которая готова помочь вам в решении любых вопросов, связанных с сетевым оборудованием и технологиями.</h4>
+    </main>
+    <main class="main-content">
+        <div class="grid">
+            <!-- Карточка 1 -->
+            <div class="card">
+                <h3>Иванов Иван Иванович</h3>
+                <p class="position">Директор по развитию</p>
+                <p>Телефон: +7 (999) 123-45-67</p>
+                <p>Email: ivanov&#64;networking.com</p>
+            </div>
+            <!-- Карточка 2 -->
+            <div class="card">
+                <h3>Петрова Мария Сергеевна</h3>
+                <p class="position">Руководитель отдела продаж</p>
+                <p>Телефон: +7 (999) 234-56-78</p>
+                <p>Email: petrova&#64;networking.com</p>
+            </div>
+            <!-- Карточка 3 -->
+            <div class="card">
+                <h3>Сидоров Алексей Викторович</h3>
+                <p class="position">Главный инженер</p>
+                <p>Телефон: +7 (999) 345-67-89</p>
+                <p>Email: sidorov&#64;networking.com</p>
+            </div>
+            <!-- Карточка 4 -->
+            <div class="card">
+                <h3>Кузнецова Ольга Николаевна</h3>
+                <p class="position">Менеджер по логистике</p>
+                <p>Телефон: +7 (999) 456-78-90</p>
+                <p>Email: kuznetsova&#64;networking.com</p>
+            </div>
+            <!-- Карточка 5 -->
+            <div class="card">
+                <h3>Васильев Сергей Андреевич</h3>
+                <p class="position">Специалист по поддержке клиентов</p>
+                <p>Телефон: +7 (999) 567-89-01</p>
+                <p>Email: vasilyev&#64;networking.com</p>
+            </div>
+            <!-- Карточка 6 -->
+            <div class="card">
+                <h3>Попова Екатерина Юрьевна</h3>
+                <p class="position">Координатор проектов</p>
+                <p>Телефон: +7 (999) 678-90-12</p>
+                <p>Email: popova&#64;networking.com</p>
+            </div>
+        </div>
+    </main>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 Сетевое Оборудование. Все права защищены.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                products: [
+                    { id: 1, name: 'Маршрутизатор', price: 5000, discount: 4500, image: 'https://example.com/router.jpg', description: 'Мощный маршрутизатор для дома и офиса.' },
+                    { id: 2, name: 'Коммутатор', price: 7000, discount: 6300, image: 'https://example.com/switch.jpg', description: 'Высокоскоростной коммутатор с 24 портами.' },
+                    { id: 3, name: 'Сетевой кабель', price: 300, discount: 270, image: 'https://example.com/cable.jpg', description: 'Надежный сетевой кабель длиной 5 метров.' }, 
+                    { id: 4, name: 'Wi-Fi адаптер', price: 1500, discount: 1350, image: 'https://example.com/wifi_adapter.jpg', description: 'Компактный Wi-Fi адаптер для ПК и ноутбуков.' }, 
+                    { id: 5, name: 'Сетевой фильтр', price: 1200, discount: 1080, image: 'https://example.com/power_strip.jpg', description: 'Сетевой фильтр на 6 розеток с защитой от перенапряжения.' }, 
+                    { id: 6, name: 'IP-камера', price: 4500, discount: 4050, image: 'https://example.com/ip_camera.jpg', description: 'Качественная IP-камера с ночным видением.' } ] } }); 
+    </script> 
+</body>
+</html>
