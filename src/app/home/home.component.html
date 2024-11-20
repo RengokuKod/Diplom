@@ -1,10 +1,79 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сетевое оборудование - Магазин</title>
+    <title>Сетевое Оборудование</title>
     <link rel="stylesheet" href="home.component.css">
 </head>
-
+<body>
+    <div id="app">
+        <header class="header">
+            <h1>Сетевое Оборудование</h1>
+        </header>
+        <main class="main-content">
+            <section class="info-section">
+                <h2>Главная страница</h2>
+                <p>На нашем сайте вы найдете все необходимое для сетевого оборудования: от маршрутизаторов до кабелей. Мы предлагаем только качественные товары по выгодным ценам.</p>
+            </section>
+            <section class="products-section">
+                <h2 class="section-title">Товары со скидками</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <img src="https://example.com/router.jpg" alt="Маршрутизатор">
+                        <h3>Маршрутизатор</h3>
+                        <p class="price">₽5000 <span class="discount">₽4500</span></p>
+                        <p class="description">Мощный маршрутизатор для дома и офиса.</p>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://example.com/switch.jpg" alt="Коммутатор">
+                        <h3>Коммутатор</h3>
+                        <p class="price">₽7000 <span class="discount">₽6300</span></p>
+                        <p class="description">Высокоскоростной коммутатор с 24 портами.</p>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://example.com/cable.jpg" alt="Сетевой кабель">
+                        <h3>Сетевой кабель</h3>
+                        <p class="price">₽300 <span class="discount">₽270</span></p>
+                        <p class="description">Надежный сетевой кабель длиной 5 метров.</p>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://example.com/wifi_adapter.jpg" alt="Wi-Fi адаптер">
+                        <h3>Wi-Fi адаптер</h3>
+                        <p class="price">₽1500 <span class="discount">₽1350</span></p>
+                        <p class="description">Компактный Wi-Fi адаптер для ПК и ноутбуков.</p>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://example.com/power_strip.jpg" alt="Сетевой фильтр">
+                        <h3>Сетевой фильтр</h3>
+                        <p class="price">₽1200 <span class="discount">₽1080</span></p>
+                        <p class="description">Сетевой фильтр на 6 розеток с защитой от перенапряжения.</p>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://example.com/ip_camera.jpg" alt="IP-камера">
+                        <h3>IP-камера</h3>
+                        <p class="price">₽4500 <span class="discount">₽4050</span></p>
+                        <p class="description">Качественная IP-камера с ночным видением.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2024 Сетевое Оборудование. Все права защищены.</p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                products: [
+                    { id: 1, name: 'Маршрутизатор', price: 5000, discount: 4500, image: 'https://example.com/router.jpg', description: 'Мощный маршрутизатор для дома и офиса.' },
+                    { id: 2, name: 'Коммутатор', price: 7000, discount: 6300, image: 'https://example.com/switch.jpg', description: 'Высокоскоростной коммутатор с 24 портами.' },
+                    { id: 3, name: 'Сетевой кабель', price: 300, discount: 270, image: 'https://example.com/cable.jpg', description: 'Надежный сетевой кабель длиной 5 метров.' }, 
+                    { id: 4, name: 'Wi-Fi адаптер', price: 1500, discount: 1350, image: 'https://example.com/wifi_adapter.jpg', description: 'Компактный Wi-Fi адаптер для ПК и ноутбуков.' }, 
+                    { id: 5, name: 'Сетевой фильтр', price: 1200, discount: 1080, image: 'https://example.com/power_strip.jpg', description: 'Сетевой фильтр на 6 розеток с защитой от перенапряжения.' }, 
+                    { id: 6, name: 'IP-камера', price: 4500, discount: 4050, image: 'https://example.com/ip_camera.jpg', description: 'Качественная IP-камера с ночным видением.' } ] } }); 
+    </script> 
+</body> 
 </html>

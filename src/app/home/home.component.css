@@ -1,69 +1,95 @@
-body {
-    background: linear-gradient(to bottom right, #ff3b30, #9b59b6); 
-    color: #333;
-    font-family: 'Arial', sans-serif;
+html, body {
     margin: 0;
     padding: 0;
+    height: auto;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, rgb(209, 32, 32), purple);
+
 }
 
-header {
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
     text-align: center;
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-nav li {
-    display: inline;
-    margin: 0 15px;
-}
-
-main {
+.main-content {
+    flex: 1;
     padding: 20px;
-}
-
-.banner {
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
-}
-
-.ad-banner {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.ad-banner img {
-    max-width: 100%;
-    border-radius: 8px;
 }
 
 .info-section {
-    background-color: #343a40; 
-    margin: 20px auto;
-    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    color: #fff; 
-    max-width: 800px;
-}
-
-.contact-section {
-    background-color: #343a40; 
-    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border-radius: 8px;
-    color: #fff;
-    max-width: 800px;
-}
-
-footer {
     text-align: center;
+    margin-bottom: 40px;
+}
+
+.products-section {
+    text-align: center;
+}
+
+.section-title {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+.products-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.product-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    margin: 10px;
+    width: 250px;
+    box-sizing: border-box;
+    overflow: hidden; /* Предотвращает выход текста */
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.price {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.discount {
+    color: yellow;
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+.description {
+    font-size: 0.9em;
+    overflow: hidden; /* Предотвращает выход текста */
+   
+    white-space: wrap; /* Текст не переносится */
+}
+
+.footer {
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
 }

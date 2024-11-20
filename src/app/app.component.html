@@ -1,29 +1,29 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">NetworkWeb</a>
+      <a class="navbar-brand" routerLink="/home">NetworkWeb</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a routerLink="/" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">home</a>
+            <a routerLink="/home" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Главная</a>
           </li>
           <li class="nav-item">
-            <a routerLink="/about" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">about</a>
+            <a routerLink="/about" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">О нас</a>
           </li>
           <li class="nav-item">
-            <a routerLink="/contact" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">contact</a>
+            <a routerLink="/contact" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Контакты</a>
           </li>
         </ul>
         <form class="d-flex">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a routerLink="/login" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">login</a>
+                  <a routerLink="/login" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Вход</a>
                 </li>
                 <li class="nav-item">
-                  <a routerLink="/registration" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">registration</a>
+                  <a routerLink="/registration" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Регистрация</a>
                 </li>
               </ul>
         </form>
@@ -31,4 +31,4 @@
     </div>
   </nav>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
