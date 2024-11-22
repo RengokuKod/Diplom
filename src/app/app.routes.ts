@@ -4,6 +4,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
+import { UserListComponent } from './user-list/user-list.component';
 export const routes: Routes = [
     { path: '', redirectTo:'home', pathMatch: 'full'},
     { path: 'home', component: HomeComponent },
@@ -11,4 +12,5 @@ export const routes: Routes = [
     { path: 'contact', component: ContactComponent },
     { path: 'registration', component: RegistrationComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'user', component: UserListComponent }
 ];

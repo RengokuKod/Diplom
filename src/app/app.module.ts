@@ -7,6 +7,7 @@ import { ContactComponent } from './contact/contact.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
+import { DataTablesModule } from "angular-datatables";
 @NgModule({
   declarations: [
     
@@ -17,12 +18,14 @@ import { RouterModule } from '@angular/router';
     LoginComponent
   ],
   imports: [
+    
     RouterModule.forRoot([
           { path: 'home', component: HomeComponent },
           { path: 'about', component: AboutComponent },
           { path: 'contact', component: ContactComponent },
           { path: 'registration', component: RegistrationComponent },]),
     BrowserModule,
+    DataTablesModule,
     AppComponent,
   ],
   providers: [],
