@@ -8,9 +8,11 @@ import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { DataTablesModule } from "angular-datatables";
+import {provideHttpClient} from '@angular/common/http';
+import { UserListComponent } from './user-list/user-list.component';
 @NgModule({
   declarations: [
-    
+    UserListComponent,
     HomeComponent,
     AboutComponent,
     ContactComponent,
@@ -25,10 +27,11 @@ import { DataTablesModule } from "angular-datatables";
           { path: 'contact', component: ContactComponent },
           { path: 'registration', component: RegistrationComponent },]),
     BrowserModule,
+   
     DataTablesModule,
     AppComponent,
   ],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: []
   
 })
