@@ -2,9 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: auto;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, rgb(209, 32, 32), purple);
-
+    background-color: #f4f4f4; /* Светло-серый фон */
 }
 
 #app {
@@ -14,13 +12,12 @@ html, body {
 }
 
 .header {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #007BFF; /* Синий цвет */
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 20px;
     text-align: center;
-    color:white;
+    color: white; /* Белый текст */
 }
 
 .main-content {
@@ -29,12 +26,11 @@ html, body {
 }
 
 .info-section {
-  
     margin: 20px auto;
     padding: 20px;
-    background: white;
+    background: #fff8e1; /* Кремовый фон */
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
     text-align: center;
     margin-bottom: 40px;
 }
@@ -47,26 +43,25 @@ html, body {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background: white;
+    background: #007BFF; /* Синий фон для заголовка */
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: white; /* Белый текст для заголовка */
 }
 
 .products-grid {
     display: flex;
-    justify-content: space-around;
+    justify-content: center; /* Выравнивание по центру */
     flex-wrap: wrap;
 }
 
 .product-card {
-   
-    margin: 20px auto;
+    margin: 20px;
     padding: 20px;
-    background: white;
+    background: #fff; /* Белая карточка продукта */
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-   
     width: 250px;
     box-sizing: border-box;
     overflow: hidden; /* Предотвращает выход текста */
@@ -81,10 +76,11 @@ html, body {
 .price {
     font-size: 1.2em;
     margin: 10px 0;
+    color: #FFCC00; /* Нежно-желтый для цены */
 }
 
 .discount {
-    color: rgb(255, 0, 0);
+    color: #a60000; /* Темный красный для скидок */
     text-decoration: line-through;
     margin-left: 10px;
 }
@@ -92,13 +88,13 @@ html, body {
 .description {
     font-size: 0.9em;
     overflow: hidden; /* Предотвращает выход текста */
-   
     white-space: wrap; /* Текст не переносится */
 }
 
 footer {
     text-align: center;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.05); /* Полупрозрачный фон */
+    color: #333; /* Темно-серый текст */
     flex-shrink: 0;
 }

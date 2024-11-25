@@ -22,13 +22,7 @@ const express = require('express');
        if (err) throw err;
        console.log('Подключение к MySQL успешно установлено');
    });
-   app.post('/api/create/db', (req, res) => {
-    const createDatabaseQuery = `CREATE DATABASE IF NOT EXISTS Diplom`;
-    db.query(createDatabaseQuery, (err, result) => {
-        if (err) throw err;
-        res.send('База данных Diplom была создана или уже существует');
-    });
-});
+   
 
    // Создание таблицы users
 app.post('/api/migrate', (req, res) => {

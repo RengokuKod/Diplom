@@ -1,11 +1,12 @@
 <div>
     <h1>Список пользователей</h1>
-    <table>
-        <thead>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
             <tr>
                 <th>ID</th>
                 <th>Имя пользователя</th>
                 <th>Email</th>
+                <th>Пароль</th>
                 <th>Роль</th>
                 <th>Дата создания</th>
             </tr>
@@ -15,6 +16,7 @@
                 <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
                 <td>{{ user.role }}</td>
                 <td>{{ user.created_at }}</td>
             </tr>

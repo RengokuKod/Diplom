@@ -3,7 +3,7 @@ html, body {
     padding: 0;
     height: auto;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, rgb(209, 32, 32), purple);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 .main-content {
     flex: 1;
@@ -15,13 +15,12 @@ html, body {
     min-height: 100vh;
 }
 header {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #007BFF; /* Синий цвет */
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 20px;
     text-align: center;
-    color:white
+    color: white; /* Белый текст */
 }
 .container {
     max-width: 1200px;
