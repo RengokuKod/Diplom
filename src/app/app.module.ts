@@ -8,8 +8,11 @@ import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { DataTablesModule } from "angular-datatables";
-import {provideHttpClient} from '@angular/common/http';
+import {HttpClient, provideHttpClient, withFetch} from '@angular/common/http';
 import { UserListComponent } from './user-list/user-list.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { UserModule } from './user-list/user.module';
 @NgModule({
   declarations: [
     UserListComponent,
@@ -20,20 +23,24 @@ import { UserListComponent } from './user-list/user-list.component';
     LoginComponent
   ],
   imports: [
-    
+    FormsModule,
+    UserModule,
+    DataTablesModule,
+    HttpClient,
     RouterModule.forRoot([
           { path: 'home', component: HomeComponent },
           { path: 'about', component: AboutComponent },
           { path: 'contact', component: ContactComponent },
           { path: 'registration', component: RegistrationComponent },]),
+          
     BrowserModule,
-   
+   CommonModule,
     DataTablesModule,
     AppComponent,
   ],
-  providers: [provideHttpClient()],
-  bootstrap: []
-  
+  providers: [provideHttpClient(withFetch())],
+  bootstrap: [],
+  exports: [UserListComponent],
 })
 //sas
 export class AppModule { }

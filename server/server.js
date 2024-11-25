@@ -12,8 +12,8 @@ const express = require('express');
    // Настройки подключения к базе данных
    const db = mysql.createConnection({
        host: 'localhost',
-       user: 'root',
-       password: 'Q1qqqqqq',
+       user: 'rengoku',
+       password: 'Q1qqqqqq!',
   
    });
 
@@ -32,6 +32,12 @@ const express = require('express');
 
    // Создание таблицы users
 app.post('/api/migrate', (req, res) => {
+   
+        const createDatabaseQuery = `CREATE DATABASE IF NOT EXISTS Diplom`;
+        db.query(createDatabaseQuery, (err, result) => {
+            if (err) throw err;
+            res.send('База данных Diplom была создана или уже существует');
+        });
     // Создаем таблицу (без команды USE)
     const createTableQuery = `
         CREATE TABLE IF NOT EXISTS users (
