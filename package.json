@@ -21,6 +21,7 @@
     "@angular/platform-server": "^18.2.0",
     "@angular/router": "^18.2.12",
     "@angular/ssr": "^18.2.12",
+    "@faker-js/faker": "^9.2.0",
     "@ng-bootstrap/ng-bootstrap": "^17.0.1",
     "@popperjs/core": "^2.11.8",
     "angular-datatables": "^18.0.0",
