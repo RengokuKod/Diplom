@@ -10,6 +10,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@angular/forms": "^19.0.5",
+    "@angular/router": "^19.0.5",
+    "@auth0/angular-jwt": "^5.2.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",

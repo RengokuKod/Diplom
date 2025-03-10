@@ -1,0 +1,35 @@
+<div class="table-container">
+  <h1>Список продуктов в категории {{ categoryName }}</h1>
+  <table>
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Название</th>
+              <th>Описание</th>
+              <th>Цена</th>
+              <th>Запасы</th>
+              <th>Дата создания</th>
+              <th>Фото</th>
+              <th>Действия</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let product of products">
+              <td>{{ product.id }}</td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.description }}</td>
+              <td>{{ product.price }}</td>
+            
+              <td>{{ product.stock }}</td>
+              <td>{{ product.created_at | slice:0:10 }}</td>
+              <td><img src='{{ product.photo }}'></td>
+              <td>
+                  <button (click)="addToCorzina(product.id, product.price)" class="btn btn-primary">В корзину</button>
+                  <button (click)="viewOtzivs(product.id)" class="btn btn-primary">Отзывы</button>
+                  <button (click)="viewVoprosy(product.id)" class="btn btn-primary">Вопросы</button>
+                  <button (click)="viewOpisanie(product.id)" class="btn btn-primary">Описание</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>

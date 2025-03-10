@@ -1,0 +1,32 @@
+<div class="table-container">
+    <h1>Описание товаров</h1>
+    <button (click)="goBackToProducts()" class="btn btn-primary">Назад к продуктам</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Бренд</th>
+                <th>Модель</th>
+                <th>Вес</th>
+                <th>Размеры</th>
+                <th>Мощность</th>
+                <th>Скорость</th>
+                <th>Совместимость</th>
+                <th>Гарантия</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let opisanie of opisanies">
+                <td>{{ opisanie.product_id }}</td>
+                <td>{{ opisanie.brand }}</td>
+                <td>{{ opisanie.model }}</td>
+                <td>{{ opisanie.weight }}</td>
+                <td>{{ opisanie.dimensions }}</td>
+                <td>{{ opisanie.power }}</td>
+                <td>{{ opisanie.speed }}</td>
+                <td>{{ opisanie.compatibility }}</td>
+                <td>{{ opisanie.warranty }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

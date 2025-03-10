@@ -1,0 +1,32 @@
+<body>
+<div class="weather-container">
+    <h1>Погода</h1>
+    <select (change)="onCityChange($event)">
+      <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+    </select>
+  
+    <div *ngIf="weatherData.main">
+      <h2>Погода в {{ city }}</h2>
+      <div class="weather-info">
+        <p><strong>Температура:</strong> {{ weatherData.main.temp }} °C</p>
+        <p><strong>Описание:</strong> {{ weatherData.weather[0]?.description }}</p>
+        <p><strong>Влажность:</strong> {{ weatherData.main.humidity }}%</p>
+        <p><strong>Скорость ветра:</strong> {{ weatherData.wind.speed }} м/с</p>
+        <p><strong>Давление:</strong> {{ weatherData.main.pressure }} гПа</p>
+        <p><strong>Видимость:</strong> {{ weatherData.visibility ? (weatherData.visibility / 1000) + ' км' : 'недоступно' }}</p>
+        <p><strong>Облачность:</strong> {{ weatherData.clouds.all }}%</p>
+        <p><strong>Время восхода:</strong> {{ (weatherData.sys.sunrise * 1000) | date:'medium' }}</p>
+        <p><strong>Время захода:</strong> {{ (weatherData.sys.sunset * 1000) | date:'medium' }}</p>
+      </div>
+    </div>
+  
+    <div *ngIf="!weatherData.main && city">
+      <p>Загрузка данных о погоде...</p>
+    </div>
+  
+    <div *ngIf="weatherData === null && city">
+      <p>Погода для указанного города не найдена.</p>
+    </div>
+  </div>
+
+  </body>

@@ -1,0 +1,39 @@
+<div class="table-container">
+  <h1>Список товаров в корзине</h1>
+  <table>
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Пользователь</th>
+              <th>Продукт</th>
+              <th>Количество</th>
+              <th>Поставщик</th>
+              <th>Цена</th>
+              <th>Дата создания</th>
+              <th>Дейст</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of corzinaItems">
+              <td>{{ item.id }}</td>
+              <td>{{ item.username }}</td>
+              <td>{{ item.product_name }}</td>
+              <td>
+                  <input type="number" [(ngModel)]="item.quantity" min="1" (change)="updateQuantity(item)">
+              </td>
+              <td>
+                  <select [(ngModel)]="item.supplier_id" (change)="updateSupplier(item)">
+                      <option *ngFor="let supplier of suppliers" [value]="supplier.id">{{ supplier.name }}</option>
+                  </select>
+              </td>
+              <td>{{ item.price }}</td>
+              <td>{{ item.created_at | slice:0:10 }}</td>
+              <td>
+                  <button (click)="removeItem(item.id)" class="btn btn-danger">Удалить</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  <h2>Итого: {{ total }} руб.</h2>
+  <button (click)="createOrder()" class="btn btn-success">Сделать заказ</button>
+</div>

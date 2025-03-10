@@ -1,0 +1,27 @@
+<div class="table-container">
+    <h1>Список поставщиков</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Рейтинг</th>
+                <th>Количество заказов</th>
+                <th>Количество курьеров</th>
+                <th>Год основания</th>
+                <th>Телефон</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let postavshik of postavshiks">
+                <td>{{ postavshik.id }}</td>
+                <td>{{ postavshik.name }}</td>
+                <td>{{ postavshik.rating }}</td>
+                <td>{{ postavshik.order_count }}</td>
+                <td>{{ postavshik.courier_count }}</td>
+                <td>{{ postavshik.founded_year }}</td>
+                <td>{{ postavshik.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

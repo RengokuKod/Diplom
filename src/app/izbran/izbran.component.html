@@ -1,0 +1,29 @@
+<div class="table-container">
+    <h1>Список избранного</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Цена</th>
+                <th>Запасы</th>
+                <th>Категория</th>
+                <th>Пользователь</th>
+                <th>Дата создания</th>
+                <th>Рейтинг</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let izbran of izbrans">
+                <td>{{ izbran.name }}</td>
+                <td>{{ izbran.description }}</td>
+                <td>{{ izbran.price }}</td>
+                <td>{{ izbran.stock }}</td>
+                <td>{{ izbran.category_name }}</td>
+                <td>{{ izbran.username }}</td>
+                <td>{{ izbran.created_at | slice:0:10 }}</td>
+                <td>{{ izbran.rating }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

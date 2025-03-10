@@ -7,17 +7,14 @@
     <link rel="stylesheet" href="app.component.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" routerLink="/home">NetworkWeb</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a routerLink="/home" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Главная</a>
-          </li>
+          
           <li class="nav-item">
             <a routerLink="/about" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">О нас</a>
           </li>
@@ -25,23 +22,63 @@
             <a routerLink="/contact" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Контакты</a>
           </li>
           <li class="nav-item">
-            <a routerLink="/user" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Пользователи</a>
+            <a routerLink="/otzivs" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Отзывы</a>
           </li>
+          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+            <a routerLink="/categories" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Категории товаров</a>
+          </li>
+          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+            <a routerLink="/corzina" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Корзина</a>
+          </li>
+          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+            <a routerLink="/zakaz" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Заказы</a>
+          </li>
+          <!-- Условное отображение ссылки на страницу "Пользователи" -->
+          <li class="nav-item" *ngIf="authService.getUserRole() === 'admin'">
+            <a routerLink="/users" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Пользователи</a>
+          </li>
+          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+            <a routerLink="/weather" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Погода</a>
+          </li>
+          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+            <a routerLink="/postavshik" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Поставщики</a>
+          </li>
+          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+            <a routerLink="/izbran" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Избранное</a>
+          </li>
+          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+            <a routerLink="/opisanie" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Описание</a>
+          </li>
+          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+            <a routerLink="/vopros" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Вопросы</a>
+          </li>
+
         </ul>
+        
         <form class="d-flex">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="!authService.isAuthenticated(); else loggedIn">
+            <li class="nav-item">
+              <a routerLink="/login" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Вход</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/register" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Регистрация</a>
+            </li>
+          </ul>
+          <ng-template #loggedIn>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a routerLink="/login" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Вход</a>
-                </li>
-                <li class="nav-item">
-                  <a routerLink="/registration" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Регистрация</a>
-                </li>
-              </ul>
+              <li class="nav-item">
+                <span class="nav-link">Привет, {{ authService.getUsername() }}</span>
+              </li>
+              <li class="nav-item">
+                <button routerLink="/home" class="nav-link btn" (click)="authService.logout()">Выход</button>
+              </li>
+            </ul>
+          </ng-template>
         </form>
       </div>
     </div>
   </nav>
-
+  
   <router-outlet></router-outlet>
 </body>
 </html>

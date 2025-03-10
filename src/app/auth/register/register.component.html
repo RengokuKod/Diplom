@@ -1,0 +1,18 @@
+
+<br>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
+  <div>
+    <label for="имя_пользователя">Имя пользователя</label>
+    <input id="имя_пользователя" formControlName="имя_пользователя" type="text">
+  </div>
+  <div>
+    <label for="электронная_почта">Электронная почта</label>
+    <input id="электронная_почта" formControlName="электронная_почта" type="email">
+  </div>
+  <div>
+    <label for="пароль">Пароль</label>
+    <input id="пароль" formControlName="пароль" type="password">
+  </div>
+  <button type="submit">Зарегистрироваться</button>
+</form>
+

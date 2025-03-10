@@ -3,6 +3,7 @@ html, body {
     padding: 0;
     height: auto;
     background-color: #f4f4f4; /* Светло-серый фон */
+    
 }
 
 #app {
@@ -57,30 +58,30 @@ html, body {
 
 .product-card {
     margin: 20px;
-    padding: 20px;
+    padding: 10px;
     background: #fff; /* Белая карточка продукта */
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 250px;
+    width: 350px;
     box-sizing: border-box;
     overflow: hidden; /* Предотвращает выход текста */
 }
 
 .product-card img {
     max-width: 100%;
-    height: auto;
+    height: 300px;
     border-radius: 8px;
 }
 
 .price {
     font-size: 1.2em;
     margin: 10px 0;
-    color: #FFCC00; /* Нежно-желтый для цены */
+    color: #ff2414; /* Нежно-желтый для цены */
 }
 
 .discount {
-    color: #a60000; /* Темный красный для скидок */
+    color: #302e2e; /* Темный красный для скидок */
     text-decoration: line-through;
     margin-left: 10px;
 }

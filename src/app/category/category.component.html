@@ -1,0 +1,28 @@
+<div class="table-container">
+  <h1>Список категорий</h1>
+  <table>
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Название</th>
+              <th>Описание</th>
+              <th>Дата создания</th>
+              <th>Количество продуктов</th>
+              <th>Действия</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let cat of category"> <!-- Изменено с categories на category -->
+              <td>{{ cat.id }}</td>
+              <td>{{ cat.name }}</td>
+              <td>{{ cat.description }}</td>
+              <td>{{ cat.created_at | slice:0:10 }}</td>
+              <td>{{ cat.product_count }}</td>
+              <td>
+                  <button (click)="viewProducts(cat.name)" class="btn btn-primary">Просмотреть продукты</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  
+</div>

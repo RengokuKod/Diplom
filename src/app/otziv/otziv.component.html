@@ -1,0 +1,23 @@
+<div class="table-container">
+    <h1>Список отзывов</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Рейтинг</th>
+                <th>Пользователь</th>
+                <th>Товар</th>
+                <th>Комментарий</th>
+                <th>Дата создания</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let otziv of otzivs">
+                <td>{{ otziv.rating }}</td>
+                <td>{{ otziv.username }}</td>
+                <td>{{ otziv.product_name }}</td>
+                <td>{{ otziv.comment }}</td>
+                <td>{{ otziv.created_at | slice:0:10 }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

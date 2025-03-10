@@ -3,9 +3,10 @@ nav {
     padding: 0;
     height: auto;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, rgb(42, 141, 255), rgb(7, 0, 112));
+    background: linear-gradient(to bottom right, rgb(42, 141, 255), rgb(42, 141, 255));
     color:white;
 }
 a{
     color: white;
 }
+
