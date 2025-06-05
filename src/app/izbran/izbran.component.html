@@ -1,29 +1,57 @@
-<div class="table-container">
-    <h1>Список избранного</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Название</th>
-                <th>Описание</th>
-                <th>Цена</th>
-                <th>Запасы</th>
-                <th>Категория</th>
-                <th>Пользователь</th>
-                <th>Дата создания</th>
-                <th>Рейтинг</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let izbran of izbrans">
-                <td>{{ izbran.name }}</td>
-                <td>{{ izbran.description }}</td>
-                <td>{{ izbran.price }}</td>
-                <td>{{ izbran.stock }}</td>
-                <td>{{ izbran.category_name }}</td>
-                <td>{{ izbran.username }}</td>
-                <td>{{ izbran.created_at | slice:0:10 }}</td>
-                <td>{{ izbran.rating }}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="cards-page">
+  <header class="fade-in">
+      <h1>NetworkWeb</h1>
+      <p>Избранные товары</p>
+  </header>
+
+  <div class="container">
+      <section class="section slide-up">
+          <h2>Ваше избранное</h2>
+          
+          <div *ngIf="izbrans.length > 0; else emptyFavorites">
+              <button (click)="goToCategories()" class="btn-back">
+                  <i class="fas fa-arrow-left"></i> Назад к категориям
+              </button>
+              
+              <div class="cards-grid">
+                  <div *ngFor="let izbran of izbrans; let i = index" class="card zoom-in" [style.animation-delay]="(100 * i) + 'ms'">
+                      <div class="card-image-container">
+                          <img [src]="izbran.photo || '/assets/default-product.jpg'" [alt]="izbran.name" class="card-image">
+                      </div>
+                      <div class="card-content">
+                          <h3>{{ izbran.name }}</h3>
+                          <div class="card-details">
+                              <p><i class="fas fa-tag"></i> {{ izbran.price | currency:'RUB':'symbol':'1.2-2' }}</p>
+                              <p><i class="fas fa-layer-group"></i> {{ izbran.stock }} в наличии</p>
+                              <p><i class="fas fa-star"></i> Рейтинг: {{ izbran.rating | number:'1.1-1' }}</p>
+                              <p><i class="fas fa-comments"></i> Отзывов: {{ izbran.reviews }}</p>
+                          </div>
+                          <div class="card-actions">
+                              <button *ngIf="!corzinaIds.has(izbran.productId)" (click)="addToCorzina(izbran.productId, izbran.price)" class="btn-action">
+                                  <i class="fas fa-shopping-cart"></i> В корзину
+                              </button>
+                              <span *ngIf="corzinaIds.has(izbran.productId)" class="in-cart">Товар в корзине</span>
+                              <button (click)="removeFromIzbran(izbran.id)" class="btn-action danger">
+                                  <i class="fas fa-trash"></i> Удалить
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <ng-template #emptyFavorites>
+              <div class="empty-cart zoom-in">
+                  <i class="fas fa-heart"></i>
+                  <h3>Вы пока не добавили товары в избранное</h3>
+                  <p>Перейдите в категории, чтобы добавить товары</p>
+                  <button (click)="goToCategories()" class="btn-primary">
+                      <i class="fas fa-arrow-right"></i> Перейти к категориям
+                  </button>
+              </div>
+          </ng-template>
+      </section>
+  </div>
+
+  <div *ngIf="notification" class="notification">{{ notification }}</div>
 </div>

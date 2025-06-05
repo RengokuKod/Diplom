@@ -1,101 +1,623 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    height: auto;
-    background-color: #f4f4f4; /* Светло-серый фон */
-    
+/* Основные стили */
+.home-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
 }
 
-#app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.header {
-    background-color: #007BFF; /* Синий цвет */
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    color: white; /* Белый текст */
-}
-
-.main-content {
-    flex: 1;
-    padding: 20px;
-}
-
-.info-section {
-    margin: 20px auto;
-    padding: 20px;
-    background: #fff8e1; /* Кремовый фон */
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.products-section {
-    text-align: center;
+.section-container {
+    width: 80%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .section-title {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #007BFF; /* Синий фон для заголовка */
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    color: white; /* Белый текст для заголовка */
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #2c3e50;
+    position: relative;
 }
 
-.products-grid {
+.section-title::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #6a11cb, #ff416c);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* Шапка */
+.header-section {
+    background: linear-gradient(135deg, #6a11cb, #ff416c);
+    color: white;
+    padding: 120px 0;
+    text-align: center;
+}
+
+.header-content {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.header-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.header-description {
+    font-size: 1.5rem;
+    opacity: 0.9;
+}
+
+/* Информационные блоки */
+.info-section {
+    padding: 80px 0;
+    background-color: white;
+}
+
+.info-grid {
     display: flex;
-    justify-content: center; /* Выравнивание по центру */
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.first-row {
+    justify-content: space-between;
+}
+
+.second-row {
+    justify-content: center;
+    gap: 15%;
+}
+
+.info-card {
+    width: 30%;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    margin: 0 10px;
+}
+
+.second-row .info-card {
+    width: 35%;
+}
+
+.info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.info-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.info-content {
+    padding: 25px;
+    text-align: center;
+}
+
+.info-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #6a11cb, #ff416c);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+}
+
+.info-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.info-card p {
+    color: #7f8c8d;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+/* Секции с товарами */
+.products-section {
+    padding: 80px 0;
+    background-color: #f5f7fa;
+}
+
+.discount-section {
+    background-color: white;
+}
+
+.top-section {
+    background-color: #f5f7fa;
+}
+
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.products-carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
 }
 
 .product-card {
-    margin: 20px;
-    padding: 10px;
-    background: #fff; /* Белая карточка продукта */
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 350px;
-    box-sizing: border-box;
-    overflow: hidden; /* Предотвращает выход текста */
+    flex: 0 0 calc(33.333% - 30px); /* Show 3 cards per row instead of 4 */
+    margin: 0 15px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 400px; /* Ensure enough height */
 }
 
-.product-card img {
-    max-width: 100%;
-    height: 300px;
-    border-radius: 8px;
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-.price {
-    font-size: 1.2em;
-    margin: 10px 0;
-    color: #ff2414; /* Нежно-желтый для цены */
+.product-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #ff416c;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    z-index: 1;
 }
 
-.discount {
-    color: #302e2e; /* Темный красный для скидок */
+.top-badge {
+    background: #6a11cb;
+}
+
+.product-image {
+    width: 100%;
+    height: 250px; /* Increase image height */
+    object-fit: contain;
+    padding: 20px;
+    background: #f9f9f9;
+    border-bottom: 1px solid #eee;
+}
+
+.product-content {
+    padding: 20px;
+}
+
+.product-title {
+    font-size: 1.4rem; /* Larger title */
+    margin-bottom: 12px;
+    color: #2c3e50;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.price-container {
+    margin: 15px 0;
+}
+
+.current-price {
+    font-size: 1.6rem; /* Larger price */
+    font-weight: 700;
+    color: #e74c3c;
+}
+
+.old-price {
     text-decoration: line-through;
-    margin-left: 10px;
+    color: #95a5a6;
+    font-size: 1.1rem;
+    margin-right: 10px;
 }
 
-.description {
-    font-size: 0.9em;
-    overflow: hidden; /* Предотвращает выход текста */
-    white-space: wrap; /* Текст не переносится */
+.rating {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
 }
 
-footer {
+.stars {
+    color: #f39c12;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-right: 8px;
+}
+
+.rating-value {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+    margin-right: 8px;
+}
+
+.reviews {
+    font-size: 0.85rem;
+    color: #95a5a6;
+}
+
+.product-actions {
+    display: flex;
+    gap: 15px; /* More spacing between buttons */
+    margin-top: 25px;
+    align-items: center;
+}
+
+.btn {
+    padding: 12px 25px; /* Larger buttons */
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-details {
+    background: white;
+    color: #6a11cb;
+    border: 1px solid #6a11cb;
+}
+
+.btn-details:hover {
+    background: #f0e5ff;
+}
+
+.btn-cart {
+    background: #6a11cb;
+    color: white;
+}
+
+.btn-cart:hover {
+    background: #5a0db7;
+}
+
+.in-cart {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 25px;
+    border-radius: 6px;
+    border: 1px solid #4caf50;
+    color: #4caf50;
+    font-size: 1rem;
     text-align: center;
+    background-color: #f0f8f0;
+}
+
+.heart-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
     padding: 10px;
-    background-color: rgba(0, 0, 0, 0.05); /* Полупрозрачный фон */
-    color: #333; /* Темно-серый текст */
-    flex-shrink: 0;
+    font-size: 22px;
+    color: #ccc;
+    transition: color 0.3s ease;
+}
+
+.heart-btn:hover {
+    color: #ff6b6b;
+}
+
+.filled-heart {
+    color: #ff6b6b;
+}
+
+.empty-heart {
+    color: #ccc;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.carousel-button:hover {
+    background: #f0e5ff;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+}
+
+.carousel-button.prev {
+    left: -25px;
+}
+
+.carousel-button.next {
+    right: -25px;
+}
+
+.carousel-button i {
+    color: #6a11cb;
+    font-size: 1.2rem;
+}
+
+/* CTA секция */
+.cta-section {
+    background: linear-gradient(135deg, #6a11cb, #ff416c);
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    margin: 80px auto 60px;
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.cta-content {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.cta-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.cta-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.btn-cta {
+    background: white;
+    color: #6a11cb;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background: #f8f9fa;
+}
+
+/* Контейнер для CTA */
+.cta-container {
+    width: 100%;
+    padding: 0 5%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Уведомления */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+}
+
+.notification.success {
+    background-color: #4caf50;
+}
+
+.notification.error {
+    background-color: #f44336;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0; 
+        transform: translateX(30px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.delayed-1 {
+    animation-delay: 0.2s;
+}
+
+.delayed-2 {
+    animation-delay: 0.4s;
+}
+
+.delayed-3 {
+    animation-delay: 0.6s;
+}
+
+.delayed-4 {
+    animation-delay: 0.8s;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .product-card {
+        flex: 0 0 calc(50% - 30px); /* 2 cards per row */
+    }
+}
+
+@media (max-width: 992px) {
+    .section-container {
+        width: 90%;
+    }
+    
+    .info-row {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .info-card, .second-row .info-card {
+        width: 80%;
+        margin-bottom: 30px;
+    }
+    
+    .product-card {
+        flex: 0 0 calc(50% - 30px);
+    }
+    
+    .carousel-button {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-button.prev {
+        left: -20px;
+    }
+    
+    .carousel-button.next {
+        right: -20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-section {
+        padding: 80px 0;
+    }
+    
+    .header-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .header-description {
+        font-size: 1.2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .product-card {
+        flex: 0 0 calc(100% - 30px); /* 1 card per row */
+    }
+    
+    .cta-section {
+        padding: 70px 0;
+        margin: 60px auto 40px;
+    }
+    
+    .cta-section h2 {
+        font-size: 2rem;
+    }
+    
+    .cta-section p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-container {
+        width: 95%;
+    }
+    
+    .info-card, .second-row .info-card {
+        width: 100%;
+    }
+    
+    .product-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .in-cart {
+        width: 100%;
+    }
+    
+    .heart-btn {
+        align-self: flex-end;
+    }
+    
+    .cta-section {
+        padding: 50px 20px;
+        border-radius: 15px;
+    }
+    
+    .btn-cta {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
 }

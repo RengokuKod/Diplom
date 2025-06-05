@@ -1,23 +1,32 @@
-<div class="table-container">
-    <h1>Список отзывов</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Рейтинг</th>
-                <th>Пользователь</th>
-                <th>Товар</th>
-                <th>Комментарий</th>
-                <th>Дата создания</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let otziv of otzivs">
-                <td>{{ otziv.rating }}</td>
-                <td>{{ otziv.username }}</td>
-                <td>{{ otziv.product_name }}</td>
-                <td>{{ otziv.comment }}</td>
-                <td>{{ otziv.created_at | slice:0:10 }}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="reviews-page">
+  <div class="container">
+    <h1>Отзывы</h1>
+    <button (click)="goBackToProducts()" class="btn-back">
+      <i class="fas fa-arrow-left"></i> Назад к продуктам
+    </button>
+
+    <div *ngIf="otzivs.length === 0" class="no-reviews">
+      <p>Отзывов пока нет.</p>
+    </div>
+
+    <div class="reviews-grid">
+      <div *ngFor="let otziv of otzivs" class="review-card">
+        <div class="review-header">
+          <h3>{{ otziv.product_name }}</h3>
+          <span class="date">{{ otziv.created_at | slice:0:10 }}</span>
+        </div>
+        <div class="review-content">
+          <p><strong>Пользователь:</strong> {{ otziv.username }}</p>
+          <p><strong>Рейтинг:</strong> 
+            <span class="rating-stars">
+              <span *ngFor="let star of [1,2,3,4,5]">
+                <i class="fas fa-star" [class.filled]="star <= otziv.rating"></i>
+              </span>
+            </span>
+          </p>
+          <p><strong>Комментарий:</strong> {{ otziv.comment }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

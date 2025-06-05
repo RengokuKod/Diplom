@@ -1,21 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { UserListComponent } from './user-list.component';
-import { UserService } from './user.service'; // Убедитесь, что путь правильный
+import { TestResultsComponent } from './test-results.component';
+import { UserService } from './user.service';
 import { AuthService } from '../auth/auth.service';
+import { FileService } from '../services/file.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [
-    UserListComponent
+    UserListComponent,
+    TestResultsComponent
   ],
   imports: [
-    CommonModule // Импортируем CommonModule для директив ngIf, ngFor и т.д.
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     AuthService,
-    UserService // Если хотите использовать сервис в данной области
+    UserService,
+    FileService
   ],
   exports: [
-    UserListComponent // Экспортируем компонент для использования в других модулях
+    UserListComponent,
+    TestResultsComponent
   ]
 })
 export class UserModule { }

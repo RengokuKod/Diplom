@@ -30,9 +30,8 @@ export function jwtOptionsFactory() {
 }
 @NgModule({
   declarations: [
-    HomeComponent,
+ 
     AboutComponent,
-    ContactComponent
 
   ],
   imports: [

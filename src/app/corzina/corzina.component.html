@@ -1,39 +1,74 @@
-<div class="table-container">
-  <h1>Список товаров в корзине</h1>
-  <table>
-      <thead>
-          <tr>
-              <th>ID</th>
-              <th>Пользователь</th>
-              <th>Продукт</th>
-              <th>Количество</th>
-              <th>Поставщик</th>
-              <th>Цена</th>
-              <th>Дата создания</th>
-              <th>Дейст</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let item of corzinaItems">
-              <td>{{ item.id }}</td>
-              <td>{{ item.username }}</td>
-              <td>{{ item.product_name }}</td>
-              <td>
-                  <input type="number" [(ngModel)]="item.quantity" min="1" (change)="updateQuantity(item)">
-              </td>
-              <td>
-                  <select [(ngModel)]="item.supplier_id" (change)="updateSupplier(item)">
-                      <option *ngFor="let supplier of suppliers" [value]="supplier.id">{{ supplier.name }}</option>
-                  </select>
-              </td>
-              <td>{{ item.price }}</td>
-              <td>{{ item.created_at | slice:0:10 }}</td>
-              <td>
-                  <button (click)="removeItem(item.id)" class="btn btn-danger">Удалить</button>
-              </td>
-          </tr>
-      </tbody>
-  </table>
-  <h2>Итого: {{ total }} руб.</h2>
-  <button (click)="createOrder()" class="btn btn-success">Сделать заказ</button>
+<div class="cards-page">
+    <header class="fade-in">
+        <h1>NetworkWeb</h1>
+        <p>Ваша корзина</p>
+    </header>
+
+    <div class="container">
+        <section class="section slide-up">
+            <h2>Товары в корзине</h2>
+            
+            <div *ngIf="corzinaItems.length > 0; else emptyCart">
+                <button (click)="goToCategories()" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Назад к категориям
+                </button>
+                
+                <div class="cards-grid">
+                    <div *ngFor="let item of corzinaItems; let i = index" class="card zoom-in" [style.animation-delay]="(100 * i) + 'ms'">
+                        <div class="card-image-container">
+                            <img [src]="item.photo || '/assets/default-product.jpg'" [alt]="item.product_name" class="card-image">
+                        </div>
+                        <div class="card-content">
+                            <h3>{{ item.product_name }}</h3>
+                            <div class="card-details">
+                                <div class="form-group">
+                                    <label><i class="fas fa-boxes"></i> Количество:</label>
+                                    <input type="number" [(ngModel)]="item.quantity" min="1" (ngModelChange)="updateQuantity(item)">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-truck"></i> Поставщик:</label>
+                                    <select [(ngModel)]="item.supplier_id" (ngModelChange)="updateSupplier(item)">
+                                        <option *ngFor="let supplier of suppliers" [value]="supplier.id">{{ supplier.name }}</option>
+                                    </select>
+                                </div>
+                                <p><i class="fas fa-tag"></i> Цена: {{ formatPrice(item.price) }}</p>
+                            </div>
+                            <button (click)="removeItem(item.id)" class="btn-action danger">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-summary slide-up">
+                    <div class="summary-content">
+                        <h3><i class="fas fa-receipt"></i> Сводка заказа</h3>
+                        <div class="summary-details">
+                            <p>Товаров: {{ corzinaItems.length }}</p>
+                            <p>Общее количество: {{ getTotalQuantity() }}</p>
+                            <p class="total">Итого к оплате: {{ formatPrice(total) }}</p>
+                        </div>
+                        <button (click)="createOrder()" class="btn-order">
+                            <i class="fas fa-shopping-bag"></i> Оформить заказ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #emptyCart>
+                <div class="empty-cart zoom-in">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Ваша корзина пуста</h3>
+                    <p>Перейдите в категории, чтобы добавить товары</p>
+                    <button (click)="goToCategories()" class="btn-primary">
+                        <i class="fas fa-arrow-right"></i> Перейти к категориям
+                    </button>
+                </div>
+            </ng-template>
+        </section>
+    </div>
+
+    <div *ngIf="notification" class="notification" [ngClass]="notification.type">
+        {{ notification.message }}
+    </div>
 </div>

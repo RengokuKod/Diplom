@@ -1,24 +1,26 @@
-<div class="table-container">
+<div class="questions-page">
+  <div class="container">
     <h1>Вопросы и ответы</h1>
-    <button (click)="goBackToProducts()" class="btn btn-primary">Назад к продуктам</button>
-    <table>
-        <thead>
-            <tr>
-                <th>Товар</th>
-                <th>Пользователь</th>
-                <th>Вопрос</th>
-                <th>Дата создания</th>
-                <th>Ответ</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let vopros of voprosy">
-                <td>{{ vopros.product_name }}</td>
-                <td>{{ vopros.username }}</td>
-                <td>{{ vopros.question }}</td>
-                <td>{{ vopros.created_at | slice:0:10 }}</td>
-                <td>{{ vopros.answer || 'Нет ответа' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <button (click)="goBackToProducts()" class="btn-back">
+      <i class="fas fa-arrow-left"></i> Назад к продуктам
+    </button>
+
+    <div *ngIf="voprosy.length === 0" class="no-questions">
+      <p>Вопросов пока нет.</p>
+    </div>
+
+    <div class="questions-grid">
+      <div *ngFor="let vopros of voprosy" class="question-card">
+        <div class="question-header">
+          <h3>{{ vopros.product_name }}</h3>
+          <span class="date">{{ vopros.created_at | slice:0:10 }}</span>
+        </div>
+        <div class="question-content">
+          <p><strong>Пользователь:</strong> {{ vopros.username }}</p>
+          <p><strong>Вопрос:</strong> {{ vopros.question }}</p>
+          <p><strong>Ответ:</strong> {{ vopros.answer || 'Нет ответа' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

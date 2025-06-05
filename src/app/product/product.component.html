@@ -1,35 +1,133 @@
-<div class="table-container">
-  <h1>Список продуктов в категории {{ categoryName }}</h1>
-  <table>
-      <thead>
-          <tr>
-              <th>ID</th>
-              <th>Название</th>
-              <th>Описание</th>
-              <th>Цена</th>
-              <th>Запасы</th>
-              <th>Дата создания</th>
-              <th>Фото</th>
-              <th>Действия</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let product of products">
-              <td>{{ product.id }}</td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.description }}</td>
-              <td>{{ product.price }}</td>
-            
-              <td>{{ product.stock }}</td>
-              <td>{{ product.created_at | slice:0:10 }}</td>
-              <td><img src='{{ product.photo }}'></td>
-              <td>
-                  <button (click)="addToCorzina(product.id, product.price)" class="btn btn-primary">В корзину</button>
-                  <button (click)="viewOtzivs(product.id)" class="btn btn-primary">Отзывы</button>
-                  <button (click)="viewVoprosy(product.id)" class="btn btn-primary">Вопросы</button>
-                  <button (click)="viewOpisanie(product.id)" class="btn btn-primary">Описание</button>
-              </td>
-          </tr>
-      </tbody>
-  </table>
+<div class="product-page">
+  <div class="filter-section">
+    <h2>Фильтры</h2>
+    <div class="filter-group">
+      <div class="filter-option">
+        <span>Цена</span>
+        <input type="number" placeholder="От" [(ngModel)]="priceMin" class="filter-input">
+        <input type="number" placeholder="До" [(ngModel)]="priceMax" class="filter-input">
+      </div>
+      <div class="filter-option">
+        <span>Рейтинг</span>
+        <input type="number" placeholder="От" [(ngModel)]="ratingMin" min="1" max="5" class="filter-input">
+        <input type="number" placeholder="До" [(ngModel)]="ratingMax" min="1" max="5" class="filter-input">
+      </div>
+      <div class="filter-option">
+        <span>Запасы</span>
+        <input type="number" placeholder="От" [(ngModel)]="stockMin" class="filter-input">
+        <input type="number" placeholder="До" [(ngModel)]="stockMax" class="filter-input">
+      </div>
+    </div>
+
+    <div class="sort-options">
+      <select [(ngModel)]="selectedSort" class="sort-select">
+        <option value="">Сортировка</option>
+        <option value="price_asc">Цена: по возрастанию</option>
+        <option value="price_desc">Цена: по убыванию</option>
+        <option value="rating_asc">Рейтинг: по возрастанию</option>
+        <option value="rating_desc">Рейтинг: по убыванию</option>
+        <option value="reviews_asc">Отзывы: по возрастанию</option>
+        <option value="reviews_desc">Отзывы: по убыванию</option>
+        <option value="questions_asc">Вопросы: по возрастанию</option>
+        <option value="questions_desc">Вопросы: по убыванию</option>
+        <option value="popular_desc">Популярность</option>
+        <option value="newest_desc">Новинки</option>
+      </select>
+    </div>
+
+    <div class="search-box">
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="searchProducts(searchQuery)"
+               placeholder="Поиск по названию..." class="search-input">
+      </div>
+      <button class="apply-btn" (click)="applyFiltersAndSort()">Применить</button>
+      <div class="suggestions-container" *ngIf="showSuggestions">
+        <div *ngIf="searchSuggestions.length > 0; else noSuggestions">
+          <div class="suggestion" *ngFor="let suggestion of searchSuggestions" 
+               (click)="selectSuggestion(suggestion)">
+            {{ suggestion }}
+          </div>
+        </div>
+        <ng-template #noSuggestions>
+          <div class="no-suggestions">Нет предложений</div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-container">
+    <h1>{{ categoryName }}</h1>
+    
+    <!-- Отладочный вывод -->
+    <div class="debug">
+      <p>Найденные товары: {{ filteredProducts.length }} шт.</p>
+    </div>
+
+    <div *ngIf="filteredProducts.length > 0; else noProducts" class="product-grid">
+      <div *ngFor="let product of filteredProducts" class="product-card">
+        <div class="card-image-container">
+          <img [src]="product.photo" [alt]="product.name" class="card-image">
+        </div>
+        <div class="card-content">
+          <h3>
+            <a [routerLink]="['/opisanie']" 
+               [queryParams]="{ productId: product.id, categoryName: product.category_name, price: product.price }" 
+               class="product-link">
+              {{ product.name }}
+            </a>
+          </h3>
+          <p class="product-description">{{ product.description }}</p>
+          <div class="product-details">
+            <p><span class="detail-label">Цена:</span> {{ formatPrice(product.price) }}</p>
+            <p><span class="detail-label">Запасы:</span> {{ product.stock }} шт.</p>
+            <p>
+              <a [routerLink]="['/otzivs']" [queryParams]="{ productId: product.id, categoryName: product.category_name }" class="rating-link">
+                <span class="link-label">Рейтинг:</span> {{ product.rating | number:'1.1-1' }}
+              </a>
+              <span class="rating-stars">
+                <span *ngFor="let star of [1,2,3,4,5]">
+                  <i class="fas fa-star" [class.filled]="star <= product.rating"></i>
+                </span>
+                ({{ product.reviews }})
+              </span>
+            </p>
+            <p>
+              <a [routerLink]="['/vopros']" [queryParams]="{ productId: product.id, categoryName: product.category_name }" class="questions-link">
+                <span class="link-label">Вопросы:</span> {{ product.questions }}
+              </a>
+            </p>
+          </div>
+          <div class="actions">
+            <button *ngIf="!corzinaIds.has(product.id)" 
+                    (click)="addToCorzina(product.id, product.price)" 
+                    class="btn-primary">
+              В корзину
+            </button>
+            <span *ngIf="corzinaIds.has(product.id)" class="in-cart">Товар в корзине</span>
+            <button class="heart-btn" (click)="toggleIzbran(product.id)">
+              <span [ngClass]="{'filled-heart': izbranIds.has(product.id), 'empty-heart': !izbranIds.has(product.id)}">♥</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noProducts>
+      <div class="no-products-message">
+        <p>Товары не найдены. Попробуйте изменить параметры поиска.</p>
+        <div *ngIf="searchSuggestions.length > 0" class="suggestions-message">
+          <p>Возможно, вы искали:</p>
+          <ul>
+            <li *ngFor="let suggestion of searchSuggestions" 
+                (click)="selectSuggestion(suggestion)" class="suggestion-link">
+              {{ suggestion }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-template>
+
+    <div *ngIf="notification" class="notification">{{ notification }}</div>
+  </div>
 </div>

@@ -22,7 +22,7 @@ export class VoprosComponent implements OnInit {
             const productId = params['productId'];
             this.categoryName = params['categoryName'] || '';
             if (productId) {
-                this.voprosService.getVoprosy(productId).subscribe((data: any[]) => { // Исправлено getVoprosy с productId
+                this.voprosService.getVoprosy(productId).subscribe((data: any[]) => {
                     this.voprosy = data;
                 });
             } else {

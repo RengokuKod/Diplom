@@ -1,28 +1,29 @@
-<div class="table-container">
-  <h1>Список категорий</h1>
-  <table>
-      <thead>
-          <tr>
-              <th>ID</th>
-              <th>Название</th>
-              <th>Описание</th>
-              <th>Дата создания</th>
-              <th>Количество продуктов</th>
-              <th>Действия</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let cat of category"> <!-- Изменено с categories на category -->
-              <td>{{ cat.id }}</td>
-              <td>{{ cat.name }}</td>
-              <td>{{ cat.description }}</td>
-              <td>{{ cat.created_at | slice:0:10 }}</td>
-              <td>{{ cat.product_count }}</td>
-              <td>
-                  <button (click)="viewProducts(cat.name)" class="btn btn-primary">Просмотреть продукты</button>
-              </td>
-          </tr>
-      </tbody>
-  </table>
-  
+<div class="categories-page">
+    <header class="fade-in" style="background: linear-gradient(135deg, #6a11cb, #ff416c);">
+        <h1>NetworkWeb</h1>
+        <p style="color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">Мы предоставляем огромный выбор сетевого оборудования</p>
+    </header>
+
+    <div class="container">
+        <section class="section slide-up">
+            <h2>Наши категории</h2>
+            
+            <div class="categories-grid">
+                <div *ngFor="let cat of category; let i = index" class="category-card zoom-in" [style.animation-delay]="(100 * i) + 'ms'">
+                    <div class="category-image-container">
+                        <img [src]="cat.photo" [alt]="cat.name" class="category-image">
+                    </div>
+                    <div class="category-content">
+                        <h3>{{ cat.name }}</h3>
+                        <div class="category-meta">
+                            <span><i class="fas fa-box-open"></i> 30 товаров</span>
+                        </div>
+                        <button (click)="viewProducts(cat.name)" class="btn-view">
+                            Смотреть товары
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>

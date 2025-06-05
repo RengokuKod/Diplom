@@ -1,136 +1,109 @@
-/* Общие стили для таблиц */
-.table-container {
-    padding: 24px;
-    max-width: 1200px;
-    margin: 20px auto;
-    background-color: #fafafa;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 0.3s ease;
+.questions-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.table-container:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+.container {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
 }
 
 h1 {
-    color: #3f51b5; /* Primary color Angular Material */
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    margin-bottom: 24px;
-    text-align: center;
-    letter-spacing: 0.5px;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 500;
+  text-align: center;
 }
 
-h2 {
-    color: #424242;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    margin-top: 16px;
-    text-align: right;
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #6a11cb, #ff416c);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: opacity 0.3s ease;
+  margin-bottom: 20px;
 }
 
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+.btn-back:hover {
+  opacity: 0.9;
 }
 
-thead {
-    background-color: #3f51b5; /* Angular Material Primary */
-    color: #fff;
-    position: sticky;
-    top: 0;
-    z-index: 1;
+.no-questions {
+  text-align: center;
+  padding: 40px;
+  color: #666;
 }
 
-thead th {
-    font-weight: 600;
-    font-size: 15px;
-    text-transform: uppercase;
-    padding: 14px 18px;
-    border-bottom: 2px solid #303f9f;
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
 }
 
-tbody tr {
-    transition: background-color 0.2s ease, transform 0.1s ease;
+.question-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-tbody tr:hover {
-    background-color: #e8eaf6; /* Light Indigo */
-    transform: translateY(-2px);
+.question-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-td {
-    padding: 14px 18px;
-    font-size: 14px;
-    color: #212121;
-    border-bottom: 1px solid #eeeeee;
+.question-header {
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #6a11cb, #ff416c);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+.question-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
 }
 
-.btn:hover {
-    transform: translateY(-1px);
+.question-header .date {
+  font-size: 13px;
+  opacity: 0.9;
 }
 
-.btn-primary {
-    background-color: #3f51b5;
-    color: #fff;
+.question-content {
+  padding: 20px;
 }
 
-.btn-primary:hover {
-    background-color: #303f9f;
+.question-content p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #444;
 }
 
-.btn-danger {
-    background-color: #f44336;
-    color: #fff;
+.question-content p strong {
+  color: #555;
+  margin-right: 5px;
 }
 
-.btn-danger:hover {
-    background-color: #d32f2f;
-}
+@media (max-width: 768px) {
+  .questions-grid {
+    grid-template-columns: 1fr;
+  }
 
-.btn-success {
-    background-color: #4caf50;
-    color: #fff;
-}
-
-.btn-success:hover {
-    background-color: #388e3c;
-}
-
-/* Стили для дополнительных элементов */
-select, input[type="number"] {
-    padding: 8px;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    font-size: 14px;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #fff;
-    transition: border-color 0.3s ease;
-}
-
-select:focus, input[type="number"]:focus {
-    border-color: #3f51b5;
-    outline: none;
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    opacity: 1;
+  .container {
+    padding: 20px;
+  }
 }

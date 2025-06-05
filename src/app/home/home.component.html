@@ -1,81 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сетевое Оборудование</title>
-</head>
-<body>
-
-    <div id="app">
-        <header class="header">
+<div class="home-page">
+    <!-- Шапка -->
+    <header class="header-section fade-in">
+        <div class="header-content">
             <h1>Сетевое Оборудование</h1>
-        </header>
-        <main class="main-content">
-            <section class="info-section">
-                <h2>Главная страница</h2>
-                <h4>На нашем сайте вы найдете все необходимое для сетевого оборудования: от маршрутизаторов до кабелей. Мы предлагаем только качественные товары по выгодным ценам.</h4>
-            </section>
-            <section class="products-section">
-                <h2 class="section-title">Товары со скидками</h2>
-                <img>
-                <div class="products-grid">
-                    <div class="product-card">
-                        <h3>Маршрутизатор</h3>
-                        <img src="images/marsh.jpg" alt="Маршрутизатор">
-                        <p class="price">₽4500 <span class="discount">₽5000</span></p>
-                        <p class="description">Мощный маршрутизатор для дома и офиса.</p>
-                    </div>
-                    <div class="product-card">                        
-                        <h3>Коммутатор</h3>
-                        <img src="images/comut.jpg" alt="Коммутатор">
-                        <p class="price">₽6300 <span class="discount">₽7000</span></p>
-                        <p class="description">Высокоскоростной коммутатор с 24 портами.</p>
-                    </div>
-                    <div class="product-card">                        
-                        <h3>Сетевой кабель</h3>
-                        <img src="images/setcabel.jpg" alt="Сетевой кабель">
-                        <p class="price">₽250 <span class="discount">₽320</span></p>
-                        <p class="description">Надежный сетевой кабель длиной 5 метров.</p>
-                    </div>
-                    <div class="product-card">                                                
-                        <h3>Wi-Fi адаптер</h3>
-                        <img src="images/setadapter.jpg" alt="Wi-Fi адаптер">
-                        <p class="price">₽1300 <span class="discount">₽1550</span></p>
-                        <p class="description">Компактный Wi-Fi адаптер для ПК и ноутбуков.</p>
-                    </div>
-                    <div class="product-card">                        
-                        <h3>Сетевой фильтр</h3>
-                        <img src="images/setfilter.jpg" alt="Сетевой фильтр">
-                        <p class="price">₽1000 <span class="discount">₽1200</span></p>
-                        <p class="description">Сетевой фильтр на 6 розеток с защитой от перенапряжения.</p>
-                    </div>
-                    <div class="product-card">                        
-                        <h3>IP-камера</h3>
-                        <img src="images/ipcam.jpg" alt="IP-камера">
-                        <p class="price">₽4000 <span class="discount">₽4500</span></p>
-                        <p class="description">Качественная IP-камера с ночным видением.</p>
+            <p class="header-description">Профессиональные решения для вашей сети</p>
+        </div>
+    </header>
+
+    <!-- Информационные блоки -->
+    <section class="info-section fade-in delayed-1">
+        <div class="section-container">
+            <h2 class="section-title">Наши преимущества</h2>
+            <div class="info-grid">
+                <!-- Первый ряд - 3 блока -->
+                <div class="info-row first-row">
+                    <div class="info-card" *ngFor="let info of firstRowItems; let i = index" @fadeInAnimation>
+                        <img [src]="'/images/home/information' + (i+1) + '.jpg'" alt="Info image" class="info-image">
+                        <div class="info-content">
+                            <div class="info-icon">
+                                <i class="fas {{info.icon}}"></i>
+                            </div>
+                            <h3>{{info.title}}</h3>
+                            <p>{{info.text}}</p>
+                        </div>
                     </div>
                 </div>
-            </section>
-        </main>
-        <footer class="footer">
-            <p>&copy; 2024 Сетевое Оборудование. Все права защищены.</p>
-        </footer>
+                <!-- Второй ряд - 2 блока -->
+                <div class="info-row second-row">
+                    <div class="info-card" *ngFor="let info of secondRowItems; let i = index" @fadeInAnimation>
+                        <img [src]="'/images/home/information' + (i+4) + '.jpg'" alt="Info image" class="info-image">
+                        <div class="info-content">
+                            <div class="info-icon">
+                                <i class="fas {{info.icon}}"></i>
+                            </div>
+                            <h3>{{info.title}}</h3>
+                            <p>{{info.text}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Товары со скидкой -->
+    <section class="products-section discount-section fade-in delayed-2">
+        <div class="section-container">
+            <h2 class="section-title">Товары со скидкой</h2>
+            <div class="carousel-wrapper">
+                <button class="carousel-button prev" (click)="prevDiscountSlide()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="products-carousel" #discountCarousel>
+                    <div class="carousel-track" [style.transform]="'translateX(' + discountOffset + 'px)'">
+                        <div class="product-card" *ngFor="let product of discountedProducts" @slideInAnimation>
+                            <div class="product-badge">Скидка {{product.discount}}%</div>
+                            <img [src]="product.photo" [alt]="product.name" class="product-image" (error)="product.photo = 'https://via.placeholder.com/600x400?text=No+Image'">
+                            <div class="product-content">
+                                <h3 class="product-title">{{product.name}}</h3>
+                                <div class="price-container">
+                                    <span class="old-price">{{formatPrice(product.oldPrice)}}</span>
+                                    <span class="current-price">{{formatPrice(product.price)}}</span>
+                                </div>
+                                <div class="rating">
+                                    <div class="stars">{{getStarRating(product.rating)}}</div>
+                                    <span class="rating-value">{{formatRating(product.rating)}}</span>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="btn btn-details" 
+                                            (click)="goToProductDescription(product.id, product.category_name, product.price)">
+                                        Подробнее
+                                    </button>
+                                    <button *ngIf="!cartItemIds.has(product.id)" class="btn btn-cart" 
+                                            (click)="addToCart(product.id, product.price)">
+                                        В корзину
+                                    </button>
+                                    <span *ngIf="cartItemIds.has(product.id)" class="in-cart">
+                                        <i class="fas fa-check"></i> В корзине
+                                    </span>
+                                    <button class="heart-btn" (click)="toggleWishlist(product.id)">
+                                        <span [ngClass]="{'filled-heart': izbranIds.has(product.id), 'empty-heart': !izbranIds.has(product.id)}">♥</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="carousel-button next" (click)="nextDiscountSlide()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Топовые товары -->
+    <section class="products-section top-section fade-in delayed-3">
+        <div class="section-container">
+            <h2 class="section-title">Топовые товары</h2>
+            <div class="carousel-wrapper">
+                <button class="carousel-button prev" (click)="prevTopSlide()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="products-carousel" #topCarousel>
+                    <div class="carousel-track" [style.transform]="'translateX(' + topOffset + 'px)'">
+                        <div class="product-card" *ngFor="let product of topRatedProducts" @slideInAnimation>
+                            <div class="product-badge top-badge">Топ продаж</div>
+                            <img [src]="product.photo" [alt]="product.name" class="product-image" (error)="product.photo = 'https://via.placeholder.com/600x400?text=No+Image'">
+                            <div class="product-content">
+                                <h3 class="product-title">{{product.name}}</h3>
+                                <div class="price-container">
+                                    <span class="current-price">{{formatPrice(product.price)}}</span>
+                                </div>
+                                <div class="rating">
+                                    <div class="stars">{{getStarRating(product.rating)}}</div>
+                                    <span class="rating-value">{{formatRating(product.rating)}}</span>
+                                    <span class="reviews">({{product.reviews}} отзывов)</span>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="btn btn-details" 
+                                            (click)="goToProductDescription(product.id, product.category_name, product.price)">
+                                        Подробнее
+                                    </button>
+                                    <button *ngIf="!cartItemIds.has(product.id)" class="btn btn-cart" 
+                                            (click)="addToCart(product.id, product.price)">
+                                        В корзину
+                                    </button>
+                                    <span *ngIf="cartItemIds.has(product.id)" class="in-cart">
+                                        <i class="fas fa-check"></i> В корзине
+                                    </span>
+                                    <button class="heart-btn" (click)="toggleWishlist(product.id)">
+                                        <span [ngClass]="{'filled-heart': izbranIds.has(product.id), 'empty-heart': !izbranIds.has(product.id)}">♥</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="carousel-button next" (click)="nextTopSlide()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Призыв к действию -->
+    <div class="cta-container fade-in delayed-4">
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Готовы улучшить свою сеть?</h2>
+                <p>Оставьте заявку и наш специалист поможет подобрать оптимальное оборудование</p>
+                <a routerLink="/contact" class="btn btn-cta">Оставить заявку</a>
+            </div>
+        </section>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-    <script>
-        new Vue({
-            el: '#app',
-            data: {
-                products: [
-                    { id: 1, name: 'Маршрутизатор', price: 5000, discount: 4500, image: 'https://example.com/router.jpg', description: 'Мощный маршрутизатор для дома и офиса.' },
-                    { id: 2, name: 'Коммутатор', price: 7000, discount: 6300, image: 'https://example.com/switch.jpg', description: 'Высокоскоростной коммутатор с 24 портами.' },
-                    { id: 3, name: 'Сетевой кабель', price: 300, discount: 270, image: 'https://example.com/cable.jpg', description: 'Надежный сетевой кабель длиной 5 метров.' }, 
-                    { id: 4, name: 'Wi-Fi адаптер', price: 1500, discount: 1350, image: 'https://example.com/wifi_adapter.jpg', description: 'Компактный Wi-Fi адаптер для ПК и ноутбуков.' }, 
-                    { id: 5, name: 'Сетевой фильтр', price: 1200, discount: 1080, image: 'https://example.com/power_strip.jpg', description: 'Сетевой фильтр на 6 розеток с защитой от перенапряжения.' }, 
-                    { id: 6, name: 'IP-камера', price: 4500, discount: 4050, image: 'https://example.com/ip_camera.jpg', description: 'Качественная IP-камера с ночным видением.' } ] } }); 
-    </script> 
-    
-</body> 
-</html>
+
+    <!-- Notification for cart actions -->
+    <div *ngIf="notification" class="notification" [class.success]="notification.type === 'success'" [class.error]="notification.type === 'error'">
+        {{ notification.message }}
+    </div>
+</div>

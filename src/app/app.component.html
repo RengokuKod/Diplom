@@ -5,80 +5,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сетевое Оборудование</title>
     <link rel="stylesheet" href="app.component.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/home">NetworkWeb</a>
-      
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          
-          <li class="nav-item">
-            <a routerLink="/about" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">О нас</a>
-          </li>
-          <li class="nav-item">
-            <a routerLink="/contact" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Контакты</a>
-          </li>
-          <li class="nav-item">
-            <a routerLink="/otzivs" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Отзывы</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
-            <a routerLink="/categories" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Категории товаров</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
-            <a routerLink="/corzina" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Корзина</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
-            <a routerLink="/zakaz" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Заказы</a>
-          </li>
-          <!-- Условное отображение ссылки на страницу "Пользователи" -->
-          <li class="nav-item" *ngIf="authService.getUserRole() === 'admin'">
-            <a routerLink="/users" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Пользователи</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
-            <a routerLink="/weather" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Погода</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
-            <a routerLink="/postavshik" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Поставщики</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
-            <a routerLink="/izbran" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Избранное</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
-            <a routerLink="/opisanie" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Описание</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
-            <a routerLink="/vopros" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Вопросы</a>
-          </li>
-
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a routerLink="/home">NetworkWeb</a>
+        </div>
+        
+        <button class="navbar-toggle" (click)="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <ul class="navbar-menu" [class.active]="menuOpen">
+            <li class="nav-item">
+                <i class="fas fa-info-circle"></i>
+                <a routerLink="/about" routerLinkActive="active">О нас</a>
+            </li>
+            <li class="nav-item">
+                <i class="fas fa-address-book"></i>
+                <a routerLink="/contact" routerLinkActive="active">Контакты</a>
+            </li>
+            <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+                <i class="fas fa-th-large"></i>
+                <a routerLink="/categories" routerLinkActive="active">Категории</a>
+            </li>
+            <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+                <i class="fas fa-truck"></i>
+                <a routerLink="/postavshik" routerLinkActive="active">Поставщики</a>
+            </li>
+           
+            <li class="nav-item dropdown">
+                <i class="fas fa-plus"></i>
+                <a class="dropdown-toggle" (click)="toggleDropdown()">Дополнительно</a>
+                <ul class="dropdown-menu" [class.active]="dropdownOpen">
+                    <li>
+                        <i class="fas fa-cloud-sun"></i>
+                        <a routerLink="/weather" routerLinkActive="active" (click)="closeMenus()">Погода</a>
+                    </li>
+                </ul>
+            </li>
+            
+            <!-- Иконки справа -->
+            <div class="navbar-actions">
+                <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+                    <a routerLink="/corzina" routerLinkActive="active" title="Корзина">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="mobile-text">Корзина</span>
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+                    <a routerLink="/zakaz" routerLinkActive="active" title="Заказы">
+                        <i class="fas fa-box"></i>
+                        <span class="mobile-text">Заказы</span>
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="authService.getUserRole() === 'user' || authService.getUserRole() === 'admin'">
+                    <a routerLink="/izbran" routerLinkActive="active" title="Избранное">
+                        <i class="fas fa-heart"></i>
+                        <span class="mobile-text">Избранное</span>
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="authService.getUserRole() === 'admin'">
+                    <a routerLink="/users" routerLinkActive="active" title="Пользователи">
+                        <i class="fas fa-users"></i>
+                        <span class="mobile-text">Пользователи</span>
+                    </a>
+                </li>
+            </div>
         </ul>
         
-        <form class="d-flex">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="!authService.isAuthenticated(); else loggedIn">
-            <li class="nav-item">
-              <a routerLink="/login" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Вход</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="/register" class="nav-link active" routerLinkActive="active" ariaCurrentWhenActive="page">Регистрация</a>
-            </li>
-          </ul>
-          <ng-template #loggedIn>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <span class="nav-link">Привет, {{ authService.getUsername() }}</span>
-              </li>
-              <li class="nav-item">
-                <button routerLink="/home" class="nav-link btn" (click)="authService.logout()">Выход</button>
-              </li>
+        <div class="navbar-auth" [class.active]="menuOpen">
+            <ul *ngIf="!authService.isAuthenticated(); else loggedIn">
+                <li class="nav-item">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <a routerLink="/login" routerLinkActive="active">Вход</a>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-user-plus"></i>
+                    <a routerLink="/register" routerLinkActive="active">Регистрация</a>
+                </li>
             </ul>
-          </ng-template>
-        </form>
-      </div>
-    </div>
-  </nav>
-  
-  <router-outlet></router-outlet>
+            <ng-template #loggedIn>
+                <ul>
+                    <li class="nav-item">
+                        <span>Привет, {{ authService.getUsername() }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <button (click)="authService.logout()">Выход</button>
+                    </li>
+                </ul>
+            </ng-template>
+        </div>
+    </nav>
+    
+    <router-outlet></router-outlet>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p><i class="fas fa-map-marker-alt"></i> г. Ангарск, ул. Ленина, 15</p>
+                <p><i class="fas fa-phone"></i> +7 (999) 123-45-67</p>
+                <p><i class="fas fa-envelope"></i> info&#64;networkweb.com</p>
+                <p><i class="fas fa-clock"></i> Пн-Пт: 9:00–18:00</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Партнеры</h3>
+                <div class="partners">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Cisco_logo.svg/1200px-Cisco_logo.svg.png" alt="Cisco">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Hewlett_Packard_Enterprise_logo.svg/1200px-Hewlett_Packard_Enterprise_logo.svg.png" alt="HPE">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Juniper_Networks_Logo_2016.svg/1200px-Juniper_Networks_Logo_2016.svg.png" alt="Juniper">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/D-Link_logo.svg/1200px-D-Link_logo.svg.png" alt="D-Link">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ubiquiti_Networks_logo.svg/1200px-Ubiquiti_Networks_logo.svg.png" alt="Ubiquiti">
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Соцсети</h3>
+                <div class="social-links">
+                    <a href="https://wa.me/79991234567" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://t.me/networkweb" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+                    <a href="https://vk.com/networkweb" target="_blank" title="VK"><i class="fab fa-vk"></i></a>
+                </div>
+            </div>
+            
+            <p class="copyright">© 2024 NetworkWeb. Все права защищены.</p>
+        </div>
+    </footer>
 </body>
 </html>

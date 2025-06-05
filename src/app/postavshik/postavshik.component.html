@@ -1,27 +1,30 @@
-<div class="table-container">
-    <h1>Список поставщиков</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Название</th>
-                <th>Рейтинг</th>
-                <th>Количество заказов</th>
-                <th>Количество курьеров</th>
-                <th>Год основания</th>
-                <th>Телефон</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let postavshik of postavshiks">
-                <td>{{ postavshik.id }}</td>
-                <td>{{ postavshik.name }}</td>
-                <td>{{ postavshik.rating }}</td>
-                <td>{{ postavshik.order_count }}</td>
-                <td>{{ postavshik.courier_count }}</td>
-                <td>{{ postavshik.founded_year }}</td>
-                <td>{{ postavshik.phone }}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="cards-page">
+    <header class="fade-in" style="background: linear-gradient(135deg, #6a11cb, #ff416c);">
+        <h1>NetworkWeb</h1>
+        <p style="color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">Представляем вам большой выбор наших лучших партнёров доставки</p>
+    </header>
+
+    <div class="container">
+        <section class="section slide-up">
+            <h2>Наши поставщики</h2>
+            
+            <div class="cards-grid">
+                <div *ngFor="let postavshik of postavshiks; let i = index" class="card zoom-in" [style.animation-delay]="(100 * i) + 'ms'">
+                    <div class="card-image-container">
+                        <img [src]="postavshik.photo" [alt]="postavshik.name" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>{{ postavshik.name }}</h3>
+                        <div class="card-details">
+                            <p><i class="fas fa-star"></i> Рейтинг: {{ postavshik.rating }}</p>
+                            <p><i class="fas fa-box"></i> Заказов: {{ postavshik.order_count }}</p>
+                            <p><i class="fas fa-motorcycle"></i> Курьеров: {{ postavshik.courier_count }}</p>
+                            <p><i class="fas fa-calendar"></i> Год основания: {{ postavshik.founded_year }}</p>
+                            <p><i class="fas fa-phone"></i> {{ postavshik.phone }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>

@@ -11,7 +11,7 @@ export class AuthService {
   private apiUrl = 'http://localhost:3000/api';
   private tokenKey = 'auth-token';
   private usernameKey = 'username';
-  private userIdKey = 'user-id'; // Новый ключ для хранения ID пользователя
+  private userIdKey = 'user-id';
   private userRoleKey = 'роль';
 
   constructor(private http: HttpClient) {}
@@ -35,9 +35,17 @@ export class AuthService {
         if (this.isBrowser()) {
           localStorage.setItem(this.tokenKey, response.token);
           localStorage.setItem(this.usernameKey, имя_пользователя);
-          localStorage.setItem(this.userIdKey, response.userId); // Сохраняем ID пользователя
+          localStorage.setItem(this.userIdKey, response.userId);
           localStorage.setItem(this.userRoleKey, response.роль);
         }
+      })
+    );
+  }
+
+  loginDryRun(имя_пользователя: string, пароль: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login/dry-run`, { имя_пользователя, пароль }).pipe(
+      tap(response => {
+        console.log('Dry-run login response:', response);
       })
     );
   }
@@ -46,7 +54,7 @@ export class AuthService {
     if (this.isBrowser()) {
       localStorage.removeItem(this.tokenKey);
       localStorage.removeItem(this.usernameKey);
-      localStorage.removeItem(this.userIdKey); // Удаляем ID пользователя
+      localStorage.removeItem(this.userIdKey);
       localStorage.removeItem(this.userRoleKey);
     }
   }
@@ -67,16 +75,35 @@ export class AuthService {
 
   getUserRole(): string | null {
     if (this.isBrowser()) {
-        return localStorage.getItem(this.userRoleKey);
+      return localStorage.getItem(this.userRoleKey);
     }
-    return null; // Возврат null, если не в браузере
+    return null;
   }
 
-  getUserId(): string | null { // Новый метод для получения ID пользователя
+  getUserId(): string | null {
     if (this.isBrowser()) {
       return localStorage.getItem(this.userIdKey);
     }
     return null;
+  }
+
+  isAdmin(): boolean {
+    if (this.isBrowser()) {
+      return localStorage.getItem(this.userRoleKey) === 'admin';
+    }
+    return false;
+  }
+
+  exportToExcel(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/export-excel`);
+  }
+
+  exportToExcelDryRun(): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/export/dry-run`, {}).pipe(
+      tap(response => {
+        console.log('Dry-run export response:', response);
+      })
+    );
   }
 
   seedDatabase(): Observable<any> {
@@ -86,10 +113,27 @@ export class AuthService {
       })
     );
   }
+
+  seedDatabaseDryRun(): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/seed/dry-run`, {}).pipe(
+      tap(response => {
+        console.log('Dry-run seeding response:', response);
+      })
+    );
+  }
+
   migrateDatabase(): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/migrate`, {}).pipe(
       tap(response => {
         console.log('Database successfully migrated:', response);
+      })
+    );
+  }
+
+  migrateDatabaseDryRun(): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/migrate/dry-run`, {}).pipe(
+      tap(response => {
+        console.log('Dry-run migration response:', response);
       })
     );
   }

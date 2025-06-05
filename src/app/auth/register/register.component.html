@@ -1,18 +1,22 @@
-
-<br>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
-  <div>
-    <label for="имя_пользователя">Имя пользователя</label>
-    <input id="имя_пользователя" formControlName="имя_пользователя" type="text">
-  </div>
-  <div>
-    <label for="электронная_почта">Электронная почта</label>
-    <input id="электронная_почта" formControlName="электронная_почта" type="email">
-  </div>
-  <div>
-    <label for="пароль">Пароль</label>
-    <input id="пароль" formControlName="пароль" type="password">
-  </div>
-  <button type="submit">Зарегистрироваться</button>
+    <h2>Регистрация</h2>
+    <div>
+        <label for="имя_пользователя">Имя пользователя</label>
+        <input id="имя_пользователя" formControlName="имя_пользователя" type="text" placeholder="Введите имя пользователя">
+    </div>
+    <div>
+        <label for="электронная_почта">Электронная почта</label>
+        <input id="электронная_почта" formControlName="электронная_почта" type="email" placeholder="Введите email">
+    </div>
+    <div>
+        <label for="пароль">Пароль</label>
+        <input id="пароль" formControlName="пароль" type="password" placeholder="Введите пароль">
+    </div>
+    <button type="submit" [disabled]="registerForm.invalid">Зарегистрироваться</button>
 </form>
-
+<div *ngIf="errorMessage" class="error-notification">
+    <span>{{ errorMessage }}</span>
+</div>
+<div *ngIf="successMessage" class="success-notification">
+    <span>{{ successMessage }}</span>
+</div>

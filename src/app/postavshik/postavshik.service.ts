@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 
 export interface Postavshik {
     id: number;
-    name: string;
-    rating: number;
-    order_count: number;
-    courier_count: number;
-    founded_year: number;
-    phone: string;
-    photo?: string;
+    название: string;
+    рэйтинг: number;
+    количество_заказов: number;
+    количество_курьеров: number;
+    год_основания: number;
+    телефон: string;
+    фото?: string;
 }
 
 @Injectable({

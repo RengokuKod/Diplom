@@ -1,136 +1,524 @@
-/* Общие стили для таблиц */
-.table-container {
-    padding: 24px;
-    max-width: 1200px;
-    margin: 20px auto;
-    background-color: #fafafa;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 0.3s ease;
+/* Общие стили страницы */
+.cards-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f0ff;
 }
 
-.table-container:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-h1 {
-    color: #3f51b5; /* Primary color Angular Material */
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    margin-bottom: 24px;
+header {
+    background: linear-gradient(135deg, #6a11cb, #ff416c);
+    padding: 80px 20px 40px;
     text-align: center;
-    letter-spacing: 0.5px;
+    color: white;
+    margin-top: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 15px;
+    animation: pulse 3s infinite;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+header p {
+    font-size: 1.5em;
+    opacity: 0.9;
+    margin-bottom: 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+    max-width: 1400px;
+    width: 95%;
+    margin: 0 auto;
+    padding: 40px 10px;
+    flex: 1;
+}
+
+.section {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+    border-left: 6px solid #6a11cb;
 }
 
 h2 {
-    color: #424242;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    margin-top: 16px;
-    text-align: right;
+    color: #6a11cb;
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
 }
 
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 5px;
+    background: linear-gradient(to right, #6a11cb, #ff416c);
+    border-radius: 3px;
 }
 
-thead {
-    background-color: #3f51b5; /* Angular Material Primary */
-    color: #fff;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
-
-thead th {
-    font-weight: 600;
-    font-size: 15px;
-    text-transform: uppercase;
-    padding: 14px 18px;
-    border-bottom: 2px solid #303f9f;
-}
-
-tbody tr {
-    transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-tbody tr:hover {
-    background-color: #e8eaf6; /* Light Indigo */
-    transform: translateY(-2px);
-}
-
-td {
-    padding: 14px 18px;
-    font-size: 14px;
-    color: #212121;
-    border-bottom: 1px solid #eeeeee;
-}
-
-.btn {
-    padding: 10px 20px;
+/* Кнопка "Назад к категориям" */
+.btn-back {
+    background: linear-gradient(135deg, #6a11cb, #ff416c);
+    color: white;
     border: none;
-    border-radius: 6px;
+    padding: 12px 25px;
+    border-radius: 8px;
     cursor: pointer;
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+    font-size: 1em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto 30px;
+    transition: all 0.3s ease;
 }
 
-.btn:hover {
-    transform: translateY(-1px);
+.btn-back:hover {
+    background: linear-gradient(135deg, #5a0db5, #e6375a);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Сетка карточек товаров */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border-top: 5px solid #6a11cb;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card-image-container {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card:hover .card-image {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content h3 {
+    color: #6a11cb;
+    margin: 0 0 20px;
+    font-size: 1.5em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.card-details {
+    margin-bottom: 25px;
+}
+
+.card-details p {
+    margin: 12px 0;
+    color: #555;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s ease;
+}
+
+.card-details p:hover {
+    color: #6a11cb;
+}
+
+.card-details i {
+    color: #ff416c;
+    width: 24px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group i {
+    color: #ff416c;
+    width: 24px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+input[type="number"], select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+input[type="number"]:focus, select:focus {
+    border-color: #6a11cb;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(106, 17, 203, 0.2);
+    background-color: white;
+}
+
+.btn-action {
+    background: linear-gradient(135deg, #6a11cb, #ff416c);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-action.danger {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+}
+
+.btn-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Сводка заказа */
+.order-summary {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    margin-top: 50px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #6a11cb;
+}
+
+.summary-content {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.summary-content h3 {
+    color: #6a11cb;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.summary-details {
+    margin-bottom: 30px;
+}
+
+.summary-details p {
+    margin: 12px 0;
+    color: #555;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary-details .total {
+    font-weight: 600;
+    color: #6a11cb;
+    font-size: 1.3em;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    transition: color 0.3s ease;
+}
+
+.summary-details .total:hover {
+    color: #ff416c;
+}
+
+.btn-order {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn-order:hover {
+    background: linear-gradient(135deg, #3d8b40, #2e7d32);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Пустая корзина */
+.empty-cart {
+    text-align: center;
+    padding: 50px 30px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #6a11cb;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.empty-cart i {
+    font-size: 5em;
+    color: #6a11cb;
+    margin-bottom: 25px;
+}
+
+.empty-cart h3 {
+    color: #6a11cb;
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.empty-cart p {
+    color: #555;
+    margin-bottom: 30px;
+    font-size: 1.2em;
 }
 
 .btn-primary {
-    background-color: #3f51b5;
-    color: #fff;
+    background: linear-gradient(135deg, #6a11cb, #ff416c);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-    background-color: #303f9f;
+    background: linear-gradient(135deg, #5a0db5, #e6375a);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.btn-danger {
-    background-color: #f44336;
-    color: #fff;
+/* Кастомные уведомления */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-size: 1em;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: slideInNotification 0.5s ease-in, slideOutNotification 0.5s ease-out 4.5s forwards;
 }
 
-.btn-danger:hover {
-    background-color: #d32f2f;
+.notification.success {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
 }
 
-.btn-success {
-    background-color: #4caf50;
-    color: #fff;
+.notification.error {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
 }
 
-.btn-success:hover {
-    background-color: #388e3c;
+.notification.info {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
 }
 
-/* Стили для дополнительных элементов */
-select, input[type="number"] {
-    padding: 8px;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    font-size: 14px;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #fff;
-    transition: border-color 0.3s ease;
+@keyframes slideInNotification {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
-select:focus, input[type="number"]:focus {
-    border-color: #3f51b5;
-    outline: none;
+@keyframes slideOutNotification {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    opacity: 1;
+/* Анимации */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-in forwards;
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 0.8s ease-out forwards;
+}
+
+.zoom-in {
+    opacity: 0;
+    transform: scale(0.95);
+    animation: zoomIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    header {
+        padding: 60px 15px 30px;
+    }
+
+    header h1 {
+        font-size: 2.2em;
+    }
+
+    header p {
+        font-size: 1.2em;
+    }
+
+    .container {
+        padding: 20px 10px;
+    }
+
+    .section {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .card-image-container {
+        height: 150px;
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+
+    .card-content h3 {
+        font-size: 1.3em;
+    }
+
+    .btn-action {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .order-summary {
+        padding: 20px;
+    }
+
+    .btn-order {
+        font-size: 1em;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    header p {
+        font-size: 1em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .card-content {
+        padding: 15px;
+    }
+
+    .card-details p {
+        font-size: 0.9em;
+    }
+
+    .btn-back {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
 }

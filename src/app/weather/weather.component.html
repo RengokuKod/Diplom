@@ -1,32 +1,81 @@
-<body>
+<!-- weather.component.html -->
 <div class="weather-container">
-    <h1>Погода</h1>
-    <select (change)="onCityChange($event)">
-      <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
-    </select>
-  
-    <div *ngIf="weatherData.main">
-      <h2>Погода в {{ city }}</h2>
-      <div class="weather-info">
-        <p><strong>Температура:</strong> {{ weatherData.main.temp }} °C</p>
-        <p><strong>Описание:</strong> {{ weatherData.weather[0]?.description }}</p>
-        <p><strong>Влажность:</strong> {{ weatherData.main.humidity }}%</p>
-        <p><strong>Скорость ветра:</strong> {{ weatherData.wind.speed }} м/с</p>
-        <p><strong>Давление:</strong> {{ weatherData.main.pressure }} гПа</p>
-        <p><strong>Видимость:</strong> {{ weatherData.visibility ? (weatherData.visibility / 1000) + ' км' : 'недоступно' }}</p>
-        <p><strong>Облачность:</strong> {{ weatherData.clouds.all }}%</p>
-        <p><strong>Время восхода:</strong> {{ (weatherData.sys.sunrise * 1000) | date:'medium' }}</p>
-        <p><strong>Время захода:</strong> {{ (weatherData.sys.sunset * 1000) | date:'medium' }}</p>
-      </div>
+    <div class="weather-header">
+        <h1>Прогноз погоды</h1>
+        <select (change)="onCityChange($event)">
+            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+        </select>
     </div>
-  
-    <div *ngIf="!weatherData.main && city">
-      <p>Загрузка данных о погоде...</p>
-    </div>
-  
-    <div *ngIf="weatherData === null && city">
-      <p>Погода для указанного города не найдена.</p>
-    </div>
-  </div>
 
-  </body>
+    <div *ngIf="isLoading" class="loading">
+        <div class="spinner"></div>
+        <p>Загрузка данных...</p>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+
+    <div *ngIf="weatherData.main && !isLoading" class="weather-content">
+        <div class="current-weather">
+            <div class="current-main">
+                <h2>Погода в {{ city }}</h2>
+                <div class="temp-large">
+                    {{ weatherData.main.temp | number:'1.0-0' }}°C
+                </div>
+                <div class="weather-description">
+                    <img [src]="getWeatherIcon(weatherData.weather[0].icon)" [alt]="weatherData.weather[0].description">
+                    <span>{{ weatherData.weather[0].description }}</span>
+                </div>
+            </div>
+            
+            <div class="current-details">
+                <div class="detail-item">
+                    <i class="fas fa-temperature-low"></i>
+                    <span>Ощущается как {{ weatherData.main.feels_like | number:'1.0-0' }}°C</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-tint"></i>
+                    <span>Влажность {{ weatherData.main.humidity }}%</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-wind"></i>
+                    <span>Ветер {{ weatherData.wind.speed }} м/с, {{ getWindDirection(weatherData.wind.deg) }}</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-compress-alt"></i>
+                    <span>Давление {{ weatherData.main.pressure }} гПа</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-eye"></i>
+                    <span>Видимость {{ weatherData.visibility / 1000 | number:'1.1-1' }} км</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="forecast-days">
+            <div *ngFor="let day of forecastData" 
+                 class="day-card" 
+                 [class.active]="day === selectedDay"
+                 (click)="selectDay(day)">
+                <div class="day-name">{{ day.date }}</div>
+                <img [src]="getWeatherIcon(day.weather.icon)" [alt]="day.weather.description">
+                <div class="day-temp">
+                    <span class="max">{{ day.temp_max | number:'1.0-0' }}°</span>
+                    <span class="min">{{ day.temp_min | number:'1.0-0' }}°</span>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="selectedDay" class="hourly-forecast">
+            <h3>Почасовой прогноз на {{ selectedDay.date }}</h3>
+            <div class="hours-scroll">
+                <div *ngFor="let hour of selectedDay.hours" class="hour-item">
+                    <div class="hour-time">{{ hour.time }}</div>
+                    <img [src]="getWeatherIcon(hour.icon)" [alt]="hour.description">
+                    <div class="hour-temp">{{ hour.temp | number:'1.0-0' }}°</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

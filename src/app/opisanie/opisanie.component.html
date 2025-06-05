@@ -1,32 +1,116 @@
-<div class="table-container">
-    <h1>Описание товаров</h1>
-    <button (click)="goBackToProducts()" class="btn btn-primary">Назад к продуктам</button>
-    <table>
-        <thead>
-            <tr>
-                <th>Товар</th>
-                <th>Бренд</th>
-                <th>Модель</th>
-                <th>Вес</th>
-                <th>Размеры</th>
-                <th>Мощность</th>
-                <th>Скорость</th>
-                <th>Совместимость</th>
-                <th>Гарантия</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let opisanie of opisanies">
-                <td>{{ opisanie.product_id }}</td>
-                <td>{{ opisanie.brand }}</td>
-                <td>{{ opisanie.model }}</td>
-                <td>{{ opisanie.weight }}</td>
-                <td>{{ opisanie.dimensions }}</td>
-                <td>{{ opisanie.power }}</td>
-                <td>{{ opisanie.speed }}</td>
-                <td>{{ opisanie.compatibility }}</td>
-                <td>{{ opisanie.warranty }}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="product-description-page">
+  <div class="container">
+    <button (click)="goBackToProducts()" class="btn-back">
+      <i class="fas fa-arrow-left"></i> Назад к продуктам
+    </button>
+
+    <div *ngIf="isLoading" class="loading-spinner">
+      <i class="fas fa-spinner fa-spin"></i> Загрузка...
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+
+    <div *ngIf="!isLoading && !error" class="product-card">
+      <div class="product-gallery">
+        <div class="main-image">
+          <img [src]="images[currentImageIndex] || '/assets/default-product.jpg'" [alt]="(opisanie.brand || '') + ' ' + (opisanie.model || '')">
+        </div>
+        
+        <div class="thumbnail-container" *ngIf="images.length > 1">
+          <div *ngFor="let image of images; let i = index" 
+               class="thumbnail" 
+               [class.active]="i === currentImageIndex"
+               (click)="currentImageIndex = i">
+            <img [src]="image" [alt]="'Thumbnail ' + (i + 1)">
+          </div>
+        </div>
+
+        <div class="gallery-controls" *ngIf="images.length > 1">
+          <button (click)="prevImage()" class="btn-gallery">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <span class="image-counter">{{ currentImageIndex + 1 }} / {{ images.length }}</span>
+          <button (click)="nextImage()" class="btn-gallery">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="product-details">
+        <h1>{{ opisanie.brand }} {{ opisanie.model }}</h1>
+        
+        <div class="price-section">
+          <span class="price" *ngIf="productPrice">{{ formatPrice(productPrice) }}</span>
+          <span class="error" *ngIf="!productPrice && !isLoading">Цена недоступна</span>
+        </div>
+        
+        <div class="specs-grid">
+          <div class="spec-item" *ngIf="opisanie.brand">
+            <div class="spec-label">Бренд</div>
+            <div class="spec-value">{{ opisanie.brand }}</div>
+          </div>
+          
+          <div class="spec-item" *ngIf="opisanie.model">
+            <div class="spec-label">Модель</div>
+            <div class="spec-value">{{ opisanie.model }}</div>
+          </div>
+          
+          <div class="spec-item" *ngIf="opisanie.weight">
+            <div class="spec-label">Вес</div>
+            <div class="spec-value">{{ opisanie.weight }} кг</div>
+          </div>
+          
+          <div class="spec-item" *ngIf="opisanie.dimensions">
+            <div class="spec-label">Размеры</div>
+            <div class="spec-value">{{ opisanie.dimensions }}</div>
+          </div>
+          
+          <div class="spec-item" *ngIf="opisanie.power">
+            <div class="spec-label">Мощность</div>
+            <div class="spec-value">{{ opisanie.power }} Вт</div>
+          </div>
+          
+          <div class="spec-item" *ngIf="opisanie.speed">
+            <div class="spec-label">Скорость</div>
+            <div class="spec-value">{{ opisanie.speed }}</div>
+          </div>
+          
+          <div class="spec-item" *ngIf="opisanie.compatibility">
+            <div class="spec-label">Совместимость</div>
+            <div class="spec-value">{{ opisanie.compatibility }}</div>
+          </div>
+          
+          <div class="spec-item" *ngIf="opisanie.warranty">
+            <div class="spec-label">Гарантия</div>
+            <div class="spec-value">{{ opisanie.warranty }} мес.</div>
+          </div>
+        </div>
+
+        <div class="product-actions">
+          <div *ngIf="productId">
+            <button *ngIf="!cartItemIds.has(productId)" class="btn btn-primary" (click)="addToCart()">
+              <i class="fas fa-shopping-cart"></i> В корзину
+            </button>
+            <span *ngIf="cartItemIds.has(productId)" class="in-cart">
+              <i class="fas fa-check"></i> В корзине
+            </span>
+          </div>
+          <button class="btn btn-wishlist" (click)="toggleWishlist()">
+            <span *ngIf="!isInWishlist">
+              <i class="far fa-heart"></i> В избранное
+            </span>
+            <span *ngIf="isInWishlist">
+              <i class="fas fa-heart"></i> В избранном
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="notification" class="notification" [class.success]="notification.type === 'success'" [class.error]="notification.type === 'error'">
+    {{ notification.message }}
+  </div>
 </div>

@@ -1,25 +1,151 @@
-<div class="table-container">
-    <h1>Список пользователей</h1>
-    <table>
-        <thead>
+<div class="admin-panel">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Админ-панель</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li *ngFor="let table of tables" class="nav-item">
+          <button
+            (click)="switchTable(table)"
+            [class.active]="currentTable === table"
+            class="nav-button"
+            [disabled]="isTesting"
+          >
+            {{ table | titlecase }}
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <section class="content-panel">
+      <header class="content-header">
+        <h1>{{ currentTable | titlecase }}</h1>
+        <div>
+          <button class="add-record-btn" (click)="openCreateModal()" [disabled]="isTesting">
+            Добавить запись
+          </button>
+          <button class="action-btn test" (click)="runTests()" [disabled]="isTesting">
+            {{ isTesting ? 'Тестирование...' : 'Запустить тесты' }}
+          </button>
+        </div>
+      </header>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons" *ngIf="!showTestResults">
+        <button class="action-btn migrate" (click)="migrateDatabase()" [disabled]="isTesting">Миграция</button>
+        <button class="action-btn seed" (click)="seedDatabase()" [disabled]="isTesting">Заполнить БД</button>
+        <button
+          class="action-btn download"
+          (click)="downloadProductImages()"
+          [disabled]="isDownloading || isTesting"
+        >
+          {{ isDownloading ? 'Скачивание...' : 'Скачать изображения' }}
+        </button>
+        <button class="action-btn export" (click)="exportToExcel()" [disabled]="isTesting">Экспорт в Excel</button>
+      </div>
+
+      <!-- Download Progress -->
+      <div *ngIf="downloadMessage" class="progress-container">
+        <p class="progress-message">{{ downloadMessage }}</p>
+        <div *ngIf="totalImages > 0" class="progress-bar">
+          <div class="progress-fill" [style.width]="downloadProgress + '%'"></div>
+        </div>
+        <p *ngIf="totalImages > 0" class="progress-details">
+          Завершено: {{ completedImages }} / {{ totalImages }} | Ошибки: {{ errorImages }}
+        </p>
+      </div>
+
+      <!-- Test Results -->
+      <app-test-results *ngIf="showTestResults" [results]="testResults"></app-test-results>
+
+      <!-- Table -->
+      <div class="table-container" *ngIf="!showTestResults">
+        <table>
+          <thead>
             <tr>
-                <th>ID</th>
-                <th>Имя пользователя</th>
-                <th>Email</th>
-                <th>Пароль</th>
-                <th>Роль</th>
-                <th>Дата создания</th>
+              <th *ngFor="let name of tableConfig.displayNames">{{ name }}</th>
+              <th>Действия</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of users">
-                <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.role }}</td>
-                <td>{{ user.created_at | slice:0:10 }}</td>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of tableData">
+              <td *ngFor="let field of tableConfig.fields">
+                <ng-container *ngIf="field === 'фото'; else textField">
+                  <img
+                    [src]="record[field] || '/assets/default-product.jpg'"
+                    alt="Photo"
+                    class="user-photo"
+                    (error)="onImageError($event)"
+                  />
+                </ng-container>
+                <ng-template #textField>
+                  <span>{{ record[field] }}</span>
+                </ng-template>
+              </td>
+              <td>
+                <a href="#" class="action-link edit" (click)="openEditModal(record); $event.preventDefault()">Редактировать</a>
+                <a
+                  *ngIf="record['id']"
+                  href="#"
+                  class="action-link delete"
+                  (click)="deleteRecord(record['id']); $event.preventDefault()"
+                >Удалить</a>
+              </td>
             </tr>
-        </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div *ngIf="showModal" class="modal-overlay">
+    <div class="modal-content fade-in">
+      <h2>{{ isEditMode ? 'Редактировать' : 'Создать' }} {{ currentTable | titlecase }}</h2>
+      <form [formGroup]="form" (ngSubmit)="saveRecord()">
+        <div *ngFor="let field of tableConfig.fields; let i = index" class="form-group">
+          <ng-container *ngIf="field !== 'id'">
+            <label>{{ tableConfig.displayNames[i] }}</label>
+            <ng-container [ngSwitch]="tableConfig.types[i]">
+              <select
+                *ngSwitchCase="'enum'"
+                [formControlName]="field"
+                [ngClass]="{'invalid': form.get(field)?.invalid && form.get(field)?.touched}"
+              >
+                <option *ngFor="let option of tableConfig.enums[field]" [value]="option">{{ option }}</option>
+              </select>
+              <textarea
+                *ngSwitchCase="'text'"
+                [formControlName]="field"
+                [ngClass]="{'invalid': form.get(field)?.invalid && form.get(field)?.touched}"
+              ></textarea>
+              <input
+                *ngSwitchDefault
+                [type]="tableConfig.types[i] === 'number' || tableConfig.types[i] === 'decimal' ? 'number' : tableConfig.types[i]"
+                [formControlName]="field"
+                [ngClass]="{'invalid': form.get(field)?.invalid && form.get(field)?.touched}"
+              />
+            </ng-container>
+            <p *ngIf="form.get(field)?.invalid && form.get(field)?.touched" class="form-error">
+              Поле обязательно
+            </p>
+          </ng-container>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="modal-btn cancel" (click)="closeModal()">Отмена</button>
+          <button type="submit" class="modal-btn save" [disabled]="form.invalid">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
